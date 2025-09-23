@@ -10,7 +10,7 @@ private:
     void freeMemory();
 
 public:
-    Matrix() = default;
+    Matrix();
     Matrix(int rows_, int cols_);
     ~Matrix();
 
@@ -18,12 +18,12 @@ public:
     Matrix(const Matrix& other) = delete;
     Matrix& operator=(const Matrix& other) = delete;
 
-    int getRows() const { return rows; }
-    int getCols() const { return cols; }
+    int getRows() const;
+    int getCols() const;
 
-    void inputData();
+    void inputData() const;
     void print() const;
-    void multiplyBy(int multiplier);
+    void multiplyBy(int multiplier) const;
 };
 
 #endif
