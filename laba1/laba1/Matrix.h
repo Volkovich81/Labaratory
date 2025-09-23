@@ -1,11 +1,9 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
-#include <iostream>
-
 class Matrix {
 private:
-    mutable int** data;
+    int** data;
     int rows;
     int cols;
 
@@ -16,13 +14,16 @@ public:
     Matrix(int rows_, int cols_);
     ~Matrix();
 
+    // Запрет копирования и присваивания
+    Matrix(const Matrix& other) = delete;
+    Matrix& operator=(const Matrix& other) = delete;
+
     int getRows() const;
     int getCols() const;
 
-    void inputData() const;
+    void inputData();
     void print() const;
-    void multiplyBy(int multiplier) const;
+    void multiplyBy(int multiplier);
 };
 
-#endif 
-
+#endif

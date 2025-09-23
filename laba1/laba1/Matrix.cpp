@@ -1,5 +1,6 @@
 #include "Matrix.h"
 #include <iostream>
+#include <stdexcept>
 
 void Matrix::freeMemory() {
     if (data != nullptr) {
@@ -8,6 +9,8 @@ void Matrix::freeMemory() {
         }
         delete[] data;
         data = nullptr;
+        rows = 0;
+        cols = 0;
     }
 }
 
@@ -15,8 +18,7 @@ Matrix::Matrix() : data(nullptr), rows(0), cols(0) {}
 
 Matrix::Matrix(int rows_, int cols_) : data(nullptr), rows(0), cols(0) {
     if (rows_ <= 0 || cols_ <= 0) {
-        std::cerr << "Ошибка: размеры матрицы должны быть положительными. Создана пустая матрица.\n";
-        return;
+        throw std::invalid_argument("Размеры матрицы должны быть положительными");
     }
 
     rows = rows_;
@@ -34,10 +36,9 @@ Matrix::~Matrix() {
 int Matrix::getRows() const { return rows; }
 int Matrix::getCols() const { return cols; }
 
-void Matrix::inputData() const {
+void Matrix::inputData() {
     if (data == nullptr) {
-        std::cerr << "Матрица не инициализирована для ввода.\n";
-        return;
+        throw std::runtime_error("Матрица не инициализирована для ввода");
     }
 
     std::cout << "Введите элементы матрицы (" << rows << "x" << cols << "):\n";
@@ -69,10 +70,9 @@ void Matrix::print() const {
     }
 }
 
-void Matrix::multiplyBy(int multiplier) const {
+void Matrix::multiplyBy(int multiplier) {
     if (data == nullptr) {
-        std::cerr << "Матрица не инициализирована для умножения.\n";
-        return;
+        throw std::runtime_error("Матрица не инициализирована для умножения");
     }
 
     for (int i = 0; i < rows; ++i) {
