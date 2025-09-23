@@ -1,21 +1,6 @@
+
 #include "Matrix.h"
 #include <iostream>
-#include <stdexcept>
-
-// Пользовательские исключения
-class MatrixInvalidSizeException : public std::exception {
-public:
-    const char* what() const noexcept override {
-        return "Размеры матрицы должны быть положительными";
-    }
-};
-
-class MatrixNotInitializedException : public std::exception {
-public:
-    const char* what() const noexcept override {
-        return "Матрица не инициализирована";
-    }
-};
 
 void Matrix::freeMemory() {
     if (data != nullptr) {
@@ -24,16 +9,15 @@ void Matrix::freeMemory() {
         }
         delete[] data;
         data = nullptr;
-        rows = 0;
-        cols = 0;
     }
 }
 
-Matrix::Matrix() {} // Используем инициализаторы в классе
+Matrix::Matrix() : data(nullptr), rows(0), cols(0) {}
 
-Matrix::Matrix(int rows_, int cols_) {
+Matrix::Matrix(int rows_, int cols_) : data(nullptr), rows(0), cols(0) {
     if (rows_ <= 0 || cols_ <= 0) {
-        throw MatrixInvalidSizeException();
+        std::cerr << "Ошибка: размеры матрицы должны быть положительными. Создана пустая матрица.\n";
+        return;
     }
 
     rows = rows_;
@@ -53,7 +37,8 @@ int Matrix::getCols() const { return cols; }
 
 void Matrix::inputData() const {
     if (data == nullptr) {
-        throw MatrixNotInitializedException();
+        std::cerr << "Матрица не инициализирована для ввода.\n";
+        return;
     }
 
     std::cout << "Введите элементы матрицы (" << rows << "x" << cols << "):\n";
@@ -87,7 +72,8 @@ void Matrix::print() const {
 
 void Matrix::multiplyBy(int multiplier) const {
     if (data == nullptr) {
-        throw MatrixNotInitializedException();
+        std::cerr << "Матрица не инициализирована для умножения.\n";
+        return;
     }
 
     for (int i = 0; i < rows; ++i) {
