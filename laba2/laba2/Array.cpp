@@ -1,8 +1,6 @@
 #include "Array.h"
 
-Array::Array() = default;
-
-Array::Array(int n) : size(n), data(n > 0 ? new int[n]() : nullptr) {}
+Array::Array(int n) : size(n > 0 ? n : 0), data(n > 0 ? new int[n]() : nullptr) {}
 
 Array::Array(const Array& other)
     : size(other.size),
@@ -16,13 +14,13 @@ Array::Array(const Array& other)
 }
 
 void Array::swap(Array& other) noexcept {
-    int* tmpData = data;
+    int* tempData = data;
     data = other.data;
-    other.data = tmpData;
+    other.data = tempData;
 
-    int tmpSize = size;
+    int tempSize = size;
     size = other.size;
-    other.size = tmpSize;
+    other.size = tempSize;
 }
 
 Array& Array::operator=(const Array& other) {
@@ -34,10 +32,6 @@ Array& Array::operator=(const Array& other) {
 
 Array::~Array() {
     delete[] data;
-}
-
-int Array::getSize() const {
-    return size;
 }
 
 int Array::get(int index) const {
@@ -128,25 +122,4 @@ Array Array::intersect(const Array& other) const {
 
 Array Array::operator&(const Array& other) const {
     return intersect(other);
-}
-
-std::istream& operator>>(std::istream& is, Array& arr) {
-    int n;
-    if (!(is >> n)) return is;
-    if (n < 0) n = 0;
-
-    arr.resize(n);
-    for (int i = 0; i < n; ++i)
-        is >> arr.data[i];
-    return is;
-}
-
-std::ostream& operator<<(std::ostream& os, const Array& arr) {
-    os << "{";
-    for (int i = 0; i < arr.size; ++i) {
-        os << arr[i];
-        if (i < arr.size - 1) os << ", ";
-    }
-    os << "}";
-    return os;
 }

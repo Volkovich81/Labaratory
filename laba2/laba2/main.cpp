@@ -7,37 +7,51 @@
 
 bool isPositiveInteger(const std::string& s) {
     if (s.empty()) return false;
-    for (char ch : s) {
-        if (!std::isdigit(static_cast<unsigned char>(ch)))
+
+    // Вручную проверяем все символы без ranges
+    for (size_t i = 0; i < s.size(); ++i) {
+        char ch = s[i];
+        if (!std::isdigit(static_cast<unsigned char>(ch))) {
             return false;
+        }
     }
     return true;
 }
 
 bool isIntegerString(const std::string& s) {
     if (s.empty()) return false;
-    int start = 0;
+
+    // Разделяем объявления как требует SonarCloud
+    size_t start = 0;
     if (s[0] == '+' || s[0] == '-') {
         if (s.size() == 1) return false;
         start = 1;
     }
-    for (int i = start; i < static_cast<int>(s.size()); ++i) {
-        if (!std::isdigit(static_cast<unsigned char>(s[i])))
+
+    // Вручную проверяем все символы
+    for (size_t i = start; i < s.size(); ++i) {
+        char ch = s[i];
+        if (!std::isdigit(static_cast<unsigned char>(ch))) {
             return false;
+        }
     }
     return true;
 }
 
 int parseInt(const std::string& s) {
+    // Разделяем объявления
     int sign = 1;
-    int i = 0;
+    size_t i = 0;
+
     if (s[0] == '+' || s[0] == '-') {
         if (s[0] == '-') sign = -1;
         i = 1;
     }
+
     int value = 0;
-    for (; i < static_cast<int>(s.size()); ++i)
+    for (; i < s.size(); ++i) {
         value = value * 10 + (s[i] - '0');
+    }
     return sign * value;
 }
 
@@ -55,7 +69,9 @@ void inputArray(Array& arr) {
         }
 
         n = 0;
-        for (char ch : line) n = n * 10 + (ch - '0');
+        for (size_t i = 0; i < line.size(); ++i) {
+            n = n * 10 + (line[i] - '0');
+        }
 
         if (n <= 0) {
             std::cout << "Ошибка: число должно быть больше 0.\n";
@@ -139,4 +155,3 @@ int main() {
         }
     }
 }
-
