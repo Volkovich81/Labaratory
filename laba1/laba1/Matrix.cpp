@@ -1,4 +1,3 @@
-
 #include "Matrix.h"
 #include <iostream>
 
@@ -12,9 +11,9 @@ void Matrix::freeMemory() {
     }
 }
 
-Matrix::Matrix() : data(nullptr), rows(0), cols(0) {}
+Matrix::Matrix() {}
 
-Matrix::Matrix(int rows_, int cols_) : data(nullptr), rows(0), cols(0) {
+Matrix::Matrix(int rows_, int cols_) {
     if (rows_ <= 0 || cols_ <= 0) {
         std::cerr << "Ошибка: размеры матрицы должны быть положительными. Создана пустая матрица.\n";
         return;
