@@ -2,6 +2,7 @@
 #include <string>
 #include <clocale>
 #include <stdexcept>
+#include <limits>
 #include "Matrix.h"
 
 int inputPositiveInt(const std::string& prompt) {
@@ -9,12 +10,12 @@ int inputPositiveInt(const std::string& prompt) {
     while (true) {
         std::cout << prompt;
         if (std::cin >> value && value > 0) {
-            std::cin.ignore(10000, '\n');
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             return value;
         }
-        std::cout << "Пожалуйста, введите положительное целое число.\n";
+        std::cout << "Please enter a positive integer.\n";
         std::cin.clear();
-        std::cin.ignore(10000, '\n');
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
 }
 
@@ -22,52 +23,62 @@ int main() {
     std::setlocale(LC_ALL, "Russian");
 
     try {
-        int rows = inputPositiveInt("Введите количество строк: ");
-        int cols = inputPositiveInt("Введите количество столбцов: ");
+        int rows = inputPositiveInt("Enter number of rows: ");
+        int cols = inputPositiveInt("Enter number of columns: ");
         Matrix matrix(rows, cols);
 
         bool running = true;
         while (running) {
-            std::cout << "\nМеню:\n";
-            std::cout << "1. Ввести элементы матрицы\n";
-            std::cout << "2. Вывести матрицу\n";
-            std::cout << "3. Умножить матрицу на число\n";
-            std::cout << "4. Выход\n";
-            std::cout << "Выберите действие: ";
+            std::cout << "\nMenu:\n";
+            std::cout << "1. Enter matrix elements\n";
+            std::cout << "2. Print matrix\n";
+            std::cout << "3. Multiply matrix by number\n";
+            std::cout << "4. Exit\n";
+            std::cout << "Choose action: ";
 
             int choice;
             if (!(std::cin >> choice)) {
-                std::cout << "Ошибка ввода. Попробуйте снова.\n";
+                std::cout << "Input error. Try again.\n";
                 std::cin.clear();
-                std::cin.ignore(10000, '\n');
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 continue;
             }
-            std::cin.ignore(10000, '\n');
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
             switch (choice) {
             case 1:
-                matrix.inputData();
+                try {
+                    matrix.inputData();
+                }
+                catch (const std::exception& e) {
+                    std::cerr << "Error: " << e.what() << std::endl;
+                }
                 break;
             case 2:
                 matrix.print();
                 break;
             case 3: {
-                int multiplier = inputPositiveInt("Введите число для умножения: ");
-                matrix.multiplyBy(multiplier);
-                std::cout << "Результат умножения:\n";
-                matrix.print();
+                try {
+                    int multiplier = inputPositiveInt("Enter multiplier: ");
+                    matrix.multiplyBy(multiplier);
+                    std::cout << "Multiplication result:\n";
+                    matrix.print();
+                }
+                catch (const std::exception& e) {
+                    std::cerr << "Error: " << e.what() << std::endl;
+                }
                 break;
             }
             case 4:
                 running = false;
                 break;
             default:
-                std::cout << "Неверный выбор. Попробуйте снова.\n";
+                std::cout << "Invalid choice. Try again.\n";
             }
         }
     }
     catch (const std::exception& e) {
-        std::cerr << "Ошибка: " << e.what() << std::endl;
+        std::cerr << "Error: " << e.what() << std::endl;
         return 1;
     }
 
