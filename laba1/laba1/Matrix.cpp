@@ -11,8 +11,6 @@ void Matrix::freeMemory() {
     }
 }
 
-Matrix::Matrix() {}
-
 Matrix::Matrix(int rows_, int cols_) {
     if (rows_ <= 0 || cols_ <= 0) {
         std::cerr << "Ошибка: размеры матрицы должны быть положительными. Создана пустая матрица.\n";
@@ -30,9 +28,6 @@ Matrix::Matrix(int rows_, int cols_) {
 Matrix::~Matrix() {
     freeMemory();
 }
-
-int Matrix::getRows() const { return rows; }
-int Matrix::getCols() const { return cols; }
 
 void Matrix::inputData() const {
     if (data == nullptr) {
