@@ -3,9 +3,9 @@
 
 class Matrix {
 private:
-    int** data;
-    int rows;
-    int cols;
+    int** data = nullptr;
+    int rows = 0;
+    int cols = 0;
 
     void freeMemory();
 
