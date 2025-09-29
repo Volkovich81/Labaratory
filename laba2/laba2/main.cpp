@@ -5,57 +5,6 @@
 
 #include "Array.h"
 
-bool isPositiveInteger(const std::string& s) {
-    if (s.empty()) return false;
-
-    // Range-based for loop вместо цикла с индексами
-    for (char ch : s) {
-        if (!std::isdigit(static_cast<unsigned char>(ch))) {
-            return false;
-        }
-    }
-    return true;
-}
-
-bool isIntegerString(const std::string& s) {
-    if (s.empty()) return false;
-
-    // Разделяем объявления
-    bool hasSign = (s[0] == '+' || s[0] == '-');
-    size_t start = hasSign ? 1 : 0;
-
-    if (hasSign && s.size() == 1) return false;
-
-    // Range-based for loop для оставшейся части строки
-    for (size_t i = start; i < s.size(); ++i) {
-        char ch = s[i];
-        if (!std::isdigit(static_cast<unsigned char>(ch))) {
-            return false;
-        }
-    }
-    return true;
-}
-
-int parseInt(const std::string& s) {
-    // Разделяем объявления
-    int sign = 1;
-    size_t i = 0;
-
-    // Разделяем проверку знака
-    bool hasSign = (s[0] == '+' || s[0] == '-');
-    if (hasSign) {
-        if (s[0] == '-') sign = -1;
-        i = 1;
-    }
-
-    int value = 0;
-    // Range-based for loop для оставшейся части
-    for (; i < s.size(); ++i) {
-        value = value * 10 + (s[i] - '0');
-    }
-    return sign * value;
-}
-
 void inputArray(Array& arr) {
     std::string line;
     int n = 0;
@@ -64,13 +13,26 @@ void inputArray(Array& arr) {
         std::cout << "Введите размер массива (>0): ";
         std::getline(std::cin, line);
 
-        if (!isPositiveInteger(line)) {
+        // Проверка для положительного целого числа
+        bool valid = true;
+        if (line.empty()) {
+            valid = false;
+        }
+        else {
+            for (char ch : line) {
+                if (!std::isdigit(static_cast<unsigned char>(ch))) {
+                    valid = false;
+                    break;
+                }
+            }
+        }
+
+        if (!valid) {
             std::cout << "Ошибка: введите положительное целое число.\n";
             continue;
         }
 
         n = 0;
-        // Range-based for loop
         for (char ch : line) {
             n = n * 10 + (ch - '0');
         }
@@ -88,12 +50,51 @@ void inputArray(Array& arr) {
         while (true) {
             std::cout << "Элемент [" << i << "] = ";
             std::getline(std::cin, line);
-            if (!isIntegerString(line)) {
+
+            // Проверка для целых чисел
+            bool valid = true;
+            if (line.empty()) {
+                valid = false;
+            }
+            else {
+                size_t start = 0;
+                if (line[0] == '+' || line[0] == '-') {
+                    if (line.size() == 1) {
+                        valid = false;
+                    }
+                    start = 1;
+                }
+
+                for (size_t j = start; j < line.size() && valid; ++j) {
+                    if (!std::isdigit(static_cast<unsigned char>(line[j]))) {
+                        valid = false;
+                    }
+                }
+            }
+
+            if (!valid) {
                 std::cout << "Ошибка: введите целое число.\n";
                 continue;
             }
-            int val = parseInt(line);
-            arr.set(i, val);
+
+            // Преобразование строки в число
+            int val = 0;
+            int sign = 1;
+            size_t k = 0;
+
+            if (line[0] == '-') {
+                sign = -1;
+                k = 1;
+            }
+            else if (line[0] == '+') {
+                k = 1;
+            }
+
+            for (; k < line.size(); ++k) {
+                val = val * 10 + (line[k] - '0');
+            }
+
+            arr.set(i, sign * val);
             break;
         }
     }
