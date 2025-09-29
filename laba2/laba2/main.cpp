@@ -8,6 +8,7 @@
 bool isPositiveInteger(const std::string& s) {
     if (s.empty()) return false;
 
+    // Range-based for loop вместо цикла с индексами
     for (char ch : s) {
         if (!std::isdigit(static_cast<unsigned char>(ch))) {
             return false;
@@ -19,14 +20,13 @@ bool isPositiveInteger(const std::string& s) {
 bool isIntegerString(const std::string& s) {
     if (s.empty()) return false;
 
-    size_t start = 0;
+    // Разделяем объявления
     bool hasSign = (s[0] == '+' || s[0] == '-');
+    size_t start = hasSign ? 1 : 0;
 
-    if (hasSign) {
-        if (s.size() == 1) return false;
-        start = 1;
-    }
+    if (hasSign && s.size() == 1) return false;
 
+    // Range-based for loop для оставшейся части строки
     for (size_t i = start; i < s.size(); ++i) {
         char ch = s[i];
         if (!std::isdigit(static_cast<unsigned char>(ch))) {
@@ -37,10 +37,11 @@ bool isIntegerString(const std::string& s) {
 }
 
 int parseInt(const std::string& s) {
-
+    // Разделяем объявления
     int sign = 1;
     size_t i = 0;
 
+    // Разделяем проверку знака
     bool hasSign = (s[0] == '+' || s[0] == '-');
     if (hasSign) {
         if (s[0] == '-') sign = -1;
@@ -48,6 +49,7 @@ int parseInt(const std::string& s) {
     }
 
     int value = 0;
+    // Range-based for loop для оставшейся части
     for (; i < s.size(); ++i) {
         value = value * 10 + (s[i] - '0');
     }
@@ -68,6 +70,7 @@ void inputArray(Array& arr) {
         }
 
         n = 0;
+        // Range-based for loop
         for (char ch : line) {
             n = n * 10 + (ch - '0');
         }
