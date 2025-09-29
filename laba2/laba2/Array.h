@@ -26,7 +26,7 @@ public:
     int& operator[](int index);
     const int& operator[](int index) const;
 
-private:
+    // Скрытые друзья (hidden friends)
     friend std::istream& operator>>(std::istream& is, Array& arr) {
         int n;
         if (!(is >> n)) return is;
@@ -48,6 +48,7 @@ private:
         return os;
     }
 
+private:
     void swap(Array& other) noexcept;
 };
 
