@@ -4,7 +4,7 @@ Array::Array(int n) : size(n > 0 ? n : 0), data(n > 0 ? new int[n]() : nullptr) 
 
 Array::Array(const Array& other)
     : size(other.size),
-      data(other.size > 0 ? new int[other.size] : nullptr)
+    data(other.size > 0 ? new int[other.size] : nullptr)
 {
     if (data != nullptr) {
         for (int i = 0; i < size; ++i) {
@@ -120,6 +120,7 @@ Array Array::intersect(const Array& other) const {
     return result;
 }
 
-Array Array::operator&(const Array& other) const {
-    return intersect(other);
-}
+// ”Ѕ»–ј≈ћ эту функцию - она теперь в классе как friend
+// Array Array::operator&(const Array& other) const {
+//     return intersect(other);
+// }

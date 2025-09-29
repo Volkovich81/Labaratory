@@ -21,12 +21,16 @@ public:
     void resize(int newSize);
 
     Array intersect(const Array& other) const;
-    Array operator&(const Array& other) const;
+
+    // Убираем метод operator& и делаем его hidden friend
+    friend Array operator&(const Array& lhs, const Array& rhs) {
+        return lhs.intersect(rhs);
+    }
 
     int& operator[](int index);
     const int& operator[](int index) const;
 
-    // Скрытые друзья (hidden friends)
+private:
     friend std::istream& operator>>(std::istream& is, Array& arr) {
         int n;
         if (!(is >> n)) return is;
@@ -48,7 +52,6 @@ public:
         return os;
     }
 
-private:
     void swap(Array& other) noexcept;
 };
 
