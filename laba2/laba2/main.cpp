@@ -23,7 +23,6 @@ bool isPositiveInteger(const std::string& s) {
 bool isIntegerString(const std::string& s) {
     if (s.empty()) return false;
 
-    // Убираем init-statement - используем обычную проверку
     if (s[0] == '+' || s[0] == '-') {
         if (s.size() == 1) return false;
         return allDigits(s, 1);
@@ -36,7 +35,6 @@ int parseInt(const std::string& s) {
     int sign = 1;
     size_t i = 0;
 
-    // Убираем init-statement - используем обычную проверку
     if (s[0] == '+' || s[0] == '-') {
         if (s[0] == '-') sign = -1;
         i = 1;
@@ -63,8 +61,9 @@ void inputArray(Array& arr) {
         }
 
         n = 0;
-        for (size_t i = 0; i < line.size(); ++i) {
-            n = n * 10 + (line[i] - '0');
+        // ИСПРАВЛЕНИЕ: range for-loop вместо raw for-loop
+        for (char ch : line) {
+            n = n * 10 + (ch - '0');
         }
 
         if (n <= 0) {
