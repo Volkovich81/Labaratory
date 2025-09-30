@@ -16,43 +16,17 @@ public:
     ~Array();
 
     int getSize() const { return size; }
-    int get(int index) const;
-    void set(int index, int value);
-    void resize(int newSize);
+    void set(int index, int value); // Добавляем метод set
 
-    Array intersect(const Array& other) const;
+    // Оператор & для пересечения
+    friend Array operator&(const Array& lhs, const Array& rhs);
 
-    // Убираем метод operator& и делаем его hidden friend
-    friend Array operator&(const Array& lhs, const Array& rhs) {
-        return lhs.intersect(rhs);
-    }
-
-    int& operator[](int index);
-    const int& operator[](int index) const;
+    // Friend функции для ввода-вывода
+    friend std::istream& operator>>(std::istream& is, Array& arr);
+    friend std::ostream& operator<<(std::ostream& os, const Array& arr);
 
 private:
-    friend std::istream& operator>>(std::istream& is, Array& arr) {
-        int n;
-        if (!(is >> n)) return is;
-        if (n < 0) n = 0;
-
-        arr.resize(n);
-        for (int i = 0; i < n; ++i)
-            is >> arr.data[i];
-        return is;
-    }
-
-    friend std::ostream& operator<<(std::ostream& os, const Array& arr) {
-        os << "{";
-        for (int i = 0; i < arr.size; ++i) {
-            os << arr.data[i];
-            if (i < arr.size - 1) os << ", ";
-        }
-        os << "}";
-        return os;
-    }
-
-    void swap(Array& other) noexcept;
+    void freeMemory();
 };
 
 #endif
