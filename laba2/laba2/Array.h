@@ -7,7 +7,6 @@ class Array {
 private:
     int size = 0;
     int* data = nullptr;
-    void freeMemory();
 
 public:
     Array() = default;
@@ -17,12 +16,39 @@ public:
     ~Array();
 
     int getSize() const { return size; }
+    int get(int index) const;
     void set(int index, int value);
+    void resize(int newSize);
 
-    // Hidden friends
-    friend Array operator&(const Array& lhs, const Array& rhs);
-    friend std::istream& operator>>(std::istream& is, Array& arr);
-    friend std::ostream& operator<<(std::ostream& os, const Array& arr);
+    Array intersect(const Array& other) const;
+    Array operator&(const Array& other) const;
+
+    int& operator[](int index);
+    const int& operator[](int index) const;
+
+    friend std::istream& operator>>(std::istream& is, Array& arr) {
+        int n;
+        if (!(is >> n)) return is;
+        if (n < 0) n = 0;
+
+        arr.resize(n);
+        for (int i = 0; i < n; ++i)
+            is >> arr.data[i];
+        return is;
+    }
+
+    friend std::ostream& operator<<(std::ostream& os, const Array& arr) {
+        os << "{";
+        for (int i = 0; i < arr.size; ++i) {
+            os << arr.data[i];
+            if (i < arr.size - 1) os << ", ";
+        }
+        os << "}";
+        return os;
+    }
+
+private:
+    void swap(Array& other) noexcept;
 };
 
 #endif
