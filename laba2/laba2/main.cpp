@@ -5,48 +5,39 @@
 
 #include "Array.h"
 
-bool isPositiveInteger(const std::string& s) {
-    if (s.empty()) return false;
-
-    // Исправление: range-based for loop вместо цикла с индексами
-    for (char ch : s) {
-        if (!std::isdigit(static_cast<unsigned char>(ch))) {
+// Новая функция для проверки всех символов
+bool allDigits(const std::string& s, size_t start = 0) {
+    for (size_t i = start; i < s.size(); ++i) {
+        if (!std::isdigit(static_cast<unsigned char>(s[i]))) {
             return false;
         }
     }
     return true;
+}
+
+bool isPositiveInteger(const std::string& s) {
+    if (s.empty()) return false;
+    return allDigits(s);
 }
 
 bool isIntegerString(const std::string& s) {
     if (s.empty()) return false;
 
-    // Разделяем объявления
-    size_t start = 0;
-    bool hasSign = (s[0] == '+' || s[0] == '-');
-
-    if (hasSign) {
+    // Убираем init-statement - используем обычную проверку
+    if (s[0] == '+' || s[0] == '-') {
         if (s.size() == 1) return false;
-        start = 1;
+        return allDigits(s, 1);
     }
 
-    // Исправление: range-based for loop вместо цикла с индексами
-    for (size_t i = start; i < s.size(); ++i) {
-        char ch = s[i];
-        if (!std::isdigit(static_cast<unsigned char>(ch))) {
-            return false;
-        }
-    }
-    return true;
+    return allDigits(s);
 }
 
 int parseInt(const std::string& s) {
-    // Разделяем объявления
     int sign = 1;
     size_t i = 0;
 
-    // Разделяем проверку знака
-    bool hasSign = (s[0] == '+' || s[0] == '-');
-    if (hasSign) {
+    // Убираем init-statement - используем обычную проверку
+    if (s[0] == '+' || s[0] == '-') {
         if (s[0] == '-') sign = -1;
         i = 1;
     }
@@ -72,9 +63,8 @@ void inputArray(Array& arr) {
         }
 
         n = 0;
-        // Исправление: range-based for loop вместо цикла с индексами
-        for (char ch : line) {
-            n = n * 10 + (ch - '0');
+        for (size_t i = 0; i < line.size(); ++i) {
+            n = n * 10 + (line[i] - '0');
         }
 
         if (n <= 0) {
@@ -108,7 +98,6 @@ void printArray(const Array& arr) {
 int main() {
     std::setlocale(LC_ALL, "Russian");
 
-    // Исправление: разделяем объявления переменных
     Array a;
     Array b;
     Array c;
