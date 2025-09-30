@@ -49,32 +49,31 @@ Array operator&(const Array& lhs, const Array& rhs) {
         return result;
     }
 
-    // Временный массив для хранения пересечения
     int maxSize = (lhs.size < rhs.size) ? lhs.size : rhs.size;
     int* temp = new int[maxSize];
     int count = 0;
 
     // Находим пересечение
     for (int i = 0; i < lhs.size; ++i) {
-        for (int j = 0; j < rhs.size; ++j) {
+        bool foundInOther = false;
+        for (int j = 0; j < rhs.size && !foundInOther; ++j) {
             if (lhs.data[i] == rhs.data[j]) {
-                // Проверяем, нет ли уже этого элемента в результате
-                bool found = false;
-                for (int k = 0; k < count; ++k) {
+                foundInOther = true;
+
+                bool alreadyAdded = false;
+                for (int k = 0; k < count && !alreadyAdded; ++k) {
                     if (temp[k] == lhs.data[i]) {
-                        found = true;
-                        break;
+                        alreadyAdded = true;
                     }
                 }
-                if (!found) {
+
+                if (!alreadyAdded) {
                     temp[count++] = lhs.data[i];
                 }
-                break;
             }
         }
     }
 
-    // Создаем результирующий массив
     if (count > 0) {
         result.size = count;
         result.data = new int[count];

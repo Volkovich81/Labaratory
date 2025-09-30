@@ -19,16 +19,20 @@ bool isPositiveInteger(const std::string& s) {
 bool isIntegerString(const std::string& s) {
     if (s.empty()) return false;
 
-    size_t start = 0;
+    // Убираем init-statement из if
     bool hasSign = (s[0] == '+' || s[0] == '-');
-
     if (hasSign) {
         if (s.size() == 1) return false;
-        start = 1;
+        for (size_t i = 1; i < s.size(); ++i) {
+            if (!std::isdigit(static_cast<unsigned char>(s[i]))) {
+                return false;
+            }
+        }
+        return true;
     }
 
-    for (size_t i = start; i < s.size(); ++i) {
-        char ch = s[i];
+    // Для чисел без знака
+    for (char ch : s) {
         if (!std::isdigit(static_cast<unsigned char>(ch))) {
             return false;
         }
@@ -78,7 +82,6 @@ void inputArray(Array& arr) {
         break;
     }
 
-    // Создаем массив нужного размера
     arr = Array(n);
 
     for (int i = 0; i < n; ++i) {
@@ -90,7 +93,7 @@ void inputArray(Array& arr) {
                 continue;
             }
             int val = parseInt(line);
-            arr.set(i, val); // Используем метод set
+            arr.set(i, val);
             break;
         }
     }
@@ -103,7 +106,9 @@ void printArray(const Array& arr) {
 int main() {
     std::setlocale(LC_ALL, "Russian");
 
-    Array a, b, c;
+    Array a;
+    Array b;
+    Array c;
 
     while (true) {
         std::cout << "\nМеню:\n"

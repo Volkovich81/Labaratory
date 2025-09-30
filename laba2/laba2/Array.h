@@ -7,6 +7,7 @@ class Array {
 private:
     int size = 0;
     int* data = nullptr;
+    void freeMemory();
 
 public:
     Array() = default;
@@ -16,17 +17,12 @@ public:
     ~Array();
 
     int getSize() const { return size; }
-    void set(int index, int value); // Добавляем метод set
+    void set(int index, int value);
 
-    // Оператор & для пересечения
+    // Hidden friends
     friend Array operator&(const Array& lhs, const Array& rhs);
-
-    // Friend функции для ввода-вывода
     friend std::istream& operator>>(std::istream& is, Array& arr);
     friend std::ostream& operator<<(std::ostream& os, const Array& arr);
-
-private:
-    void freeMemory();
 };
 
 #endif
