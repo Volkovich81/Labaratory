@@ -16,7 +16,6 @@ public:
     Matrix(int rows_, int cols_);
     ~Matrix();
 
-    // Запрет копирования и присваивания
     Matrix(const Matrix& other) = delete;
     Matrix& operator=(const Matrix& other) = delete;
 
