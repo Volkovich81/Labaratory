@@ -38,7 +38,7 @@ jobs:
           build-wrapper-linux-x86-64 --out-dir laba2/build_wrapper cmake --build laba2/build --config Release
 
       - name: SonarCloud scan laba1
-        uses: SonarSource/sonarqube-scan-action@v4
+        uses: SonarSource/sonarqube-scan-action@v6
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
