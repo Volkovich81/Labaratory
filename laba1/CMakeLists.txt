@@ -15,12 +15,12 @@ endif()
 
 # Пути к исходникам и заголовкам (относительно корня, где лежит этот CMakeLists.txt)
 set(SOURCES
-  ${CMAKE_SOURCE_DIR}/sources/main.cpp
-  ${CMAKE_SOURCE_DIR}/sources/Matrix.cpp
+  ${CMAKE_SOURCE_DIR}/laba1/sources/main.cpp
+  ${CMAKE_SOURCE_DIR}/laba1/sources/Matrix.cpp
 )
 
 set(HEADERS
-  ${CMAKE_SOURCE_DIR}/headers/Matrix.h
+  ${CMAKE_SOURCE_DIR}/laba1/headers/Matrix.h
 )
 
 # Автоматически добавить все .cpp в sources (альтернатива ручному перечислению)
