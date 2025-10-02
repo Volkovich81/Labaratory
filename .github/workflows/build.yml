@@ -26,15 +26,15 @@ jobs:
       - name: Build laba1
         run: |
           rm -rf laba1/build
-          mkdir laba1/build
-          cmake -S laba1 -B laba1/build 
+          mkdir -p laba1/build
+          cmake -S laba1 -B laba1/build
           build-wrapper-linux-x86-64 --out-dir laba1/build_wrapper cmake --build laba1/build --config Release
 
       - name: Build laba2
         run: |
           rm -rf laba2/build
-          mkdir laba2/build
-          cmake -S laba2 -B laba2/build 
+          mkdir -p laba2/build
+          cmake -S laba2 -B laba2/build
           build-wrapper-linux-x86-64 --out-dir laba2/build_wrapper cmake --build laba2/build --config Release
 
       - name: SonarCloud scan laba1
@@ -46,7 +46,7 @@ jobs:
             -Dsonar.projectKey=volkovich81_Labaratory1
             -Dsonar.organization=${{ env.SONAR_ORG }}
             -Dsonar.sources=laba1
-            -Dsonar.cfamily.compile-commands=lab1/build_wrapper/compile_commands.json
+            -Dsonar.cfamily.build-wrapper-output=laba1/build_wrapper
             -Dsonar.coverage.exclusions=**
             -Dsonar.cfamily.skipCoverage=true
             -Dsonar.issue.ignore.multicriteria=e1
@@ -54,7 +54,7 @@ jobs:
             -Dsonar.issue.ignore.multicriteria.e1.resourceKey=**/*
 
       - name: SonarCloud scan laba2
-        uses: SonarSource/sonarqube-scan-action@v4
+        uses: SonarSource/sonarqube-scan-action@v6
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
@@ -62,7 +62,7 @@ jobs:
             -Dsonar.projectKey=volkovich81_Labaratory2
             -Dsonar.organization=${{ env.SONAR_ORG }}
             -Dsonar.sources=laba2
-            -Dsonar.cfamily.compile-commands=lab2/build_wrapper/compile_commands.json
+            -Dsonar.cfamily.build-wrapper-output=laba2/build_wrapper
             -Dsonar.coverage.exclusions=**
             -Dsonar.cfamily.skipCoverage=true
             -Dsonar.issue.ignore.multicriteria=e1
