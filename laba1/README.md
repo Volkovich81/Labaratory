@@ -1,0 +1,2 @@
+Создать класс матрица. Память под матрицу выделять динамически. Определить конструктор без параметров, конструктор с параметрами. Реализовать методы: ввод данных в матрицу, вывод матрицы на экран, умножение матрицы на число. Проверить работу методов этого класса. 
+Ссылка на Sonar: https://sonarcloud.io/project/issues?impactSoftwareQualities=MAINTAINABILITY&issueStatuses=OPEN%2CCONFIRMED&id=Volkovich81_Labaratory
