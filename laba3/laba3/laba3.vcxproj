@@ -18,6 +18,19 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="headers\bicycle.h" />
+    <ClInclude Include="headers\car.h" />
+    <ClInclude Include="headers\carriage.h" />
+    <ClInclude Include="headers\transport.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="sources\bicycle.cpp" />
+    <ClCompile Include="sources\car.cpp" />
+    <ClCompile Include="sources\carriage.cpp" />
+    <ClCompile Include="sources\main.cpp" />
+    <ClCompile Include="sources\transport.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -102,6 +115,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\Labaratory\laba3\laba3\headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -122,19 +136,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="bicycle.cpp" />
-    <ClCompile Include="car.cpp" />
-    <ClCompile Include="carriage.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="transport.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="bicycle.h" />
-    <ClInclude Include="car.h" />
-    <ClInclude Include="carriage.h" />
-    <ClInclude Include="transport.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
