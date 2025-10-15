@@ -16,11 +16,17 @@ endif()
 # Пути к исходникам и заголовкам (относительно корня, где лежит этот CMakeLists.txt)
 set(SOURCES
   ${CMAKE_SOURCE_DIR}/laba3/sources/main.cpp
-  ${CMAKE_SOURCE_DIR}/laba3/sources/Array.cpp
+  ${CMAKE_SOURCE_DIR}/laba3/sources/transport.cpp
+  ${CMAKE_SOURCE_DIR}/laba3/sources/car.cpp
+  ${CMAKE_SOURCE_DIR}/laba3/sources/bicycle.cpp
+  ${CMAKE_SOURCE_DIR}/laba3/sources/carriage.cpp
 )
 
 set(HEADERS
-  ${CMAKE_SOURCE_DIR}/laba3/headers/Array.h
+  ${CMAKE_SOURCE_DIR}/laba3/headers/transport.h
+  ${CMAKE_SOURCE_DIR}/laba3/headers/car.h
+  ${CMAKE_SOURCE_DIR}/laba3/headers/bicycle.h
+  ${CMAKE_SOURCE_DIR}/laba3/headers/carriage.h
 )
 
 # Автоматически добавить все .cpp в sources (альтернатива ручному перечислению)
