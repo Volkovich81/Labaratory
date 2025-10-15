@@ -10,17 +10,14 @@
 
 using namespace std;
 
-// Максимальное количество транспортных средств
 const int MAX_TRANSPORTS = 50;
 
-// Функция для установки русской кодировки
 void setRussianLocale() {
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
     setlocale(LC_ALL, "Russian");
 }
 
-// Функции для ввода данных
 int inputInt(string text, int min, int max) {
     int num;
     while (true) {
@@ -62,7 +59,6 @@ string inputString(string text) {
     return str;
 }
 
-// Функция для выбора типа топлива
 string inputFuelType() {
     int choice;
     cout << "\nВыберите тип топлива:" << endl;
@@ -205,7 +201,6 @@ int main() {
     Transport* transports[MAX_TRANSPORTS];
     int transportCount = 0;
 
-    // Добавляем немного начального транспорта
     transports[transportCount++] = new Car("Седан", 80, 2.5, 500, 4, "Бензин", 8.5);
     transports[transportCount++] = new Bicycle("Горный", 15, 0.5, 20, 1, true, 21);
     transports[transportCount++] = new Carriage("Карета", 10, 1.5, 1000, 6, 2, true);
@@ -231,7 +226,6 @@ int main() {
         }
     } while (choice != 4);
 
-    // Очищаем память
     for (int i = 0; i < transportCount; i++) {
         delete transports[i];
     }
