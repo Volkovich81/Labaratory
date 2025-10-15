@@ -22,7 +22,6 @@ public:
 
     Array intersect(const Array& other) const;
 
-    // Исправление: делаем оператор & hidden friend
     friend Array operator&(const Array& lhs, const Array& rhs) {
         return lhs.intersect(rhs);
     }

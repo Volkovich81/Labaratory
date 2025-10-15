@@ -119,8 +119,3 @@ Array Array::intersect(const Array& other) const {
 
     return result;
 }
-
-// ”Ѕ»–ј≈ћ - теперь оператор & в классе как hidden friend
-// Array Array::operator&(const Array& other) const {
-//     return intersect(other);
-// }

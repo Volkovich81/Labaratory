@@ -5,7 +5,6 @@
 
 #include "Array.h"
 
-// Новая функция для проверки всех символов
 bool allDigits(const std::string& s, size_t start = 0) {
     for (size_t i = start; i < s.size(); ++i) {
         if (!std::isdigit(static_cast<unsigned char>(s[i]))) {
@@ -61,7 +60,6 @@ void inputArray(Array& arr) {
         }
 
         n = 0;
-        // ИСПРАВЛЕНИЕ: range for-loop вместо raw for-loop
         for (char ch : line) {
             n = n * 10 + (ch - '0');
         }
