@@ -1,4 +1,4 @@
-#ifndef TRANSPORT_H
+﻿#ifndef TRANSPORT_H
 #define TRANSPORT_H
 
 #include <iostream>
@@ -13,7 +13,7 @@ private:
     int max_people;
 
 public:
-    Transport(std::string n, double s, double c, double w, int p);
+    Transport(const std::string& n, double s, double c, double w, int p);  // ← ДОБАВЬ const std::string&
     virtual ~Transport() = default;
 
     virtual double getTime(double dist) = 0;

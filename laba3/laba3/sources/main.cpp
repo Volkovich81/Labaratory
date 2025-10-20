@@ -12,22 +12,20 @@ using namespace std;
 const int MAX_TRANSPORTS = 50;
 
 void setRussianLocale() {
-
 #ifdef _WIN32
     system("chcp 65001 > nul");
 #endif
-
     setlocale(LC_ALL, "");
 }
 
-string inputString(string text) {
+string inputString(const string& text) {
     string str;
     cout << text;
     getline(cin, str);
     return str;
 }
 
-int inputInt(string text, int min, int max) {
+int inputInt(const string& text, int min, int max) {
     int num;
     while (true) {
         cout << text;
@@ -44,7 +42,7 @@ int inputInt(string text, int min, int max) {
     }
 }
 
-double inputDouble(string text, double min, double max) {
+double inputDouble(const string& text, double min, double max) {
     double num;
     while (true) {
         cout << text;
@@ -80,7 +78,7 @@ string inputFuelType() {
     }
 }
 
-bool inputBool(string text) {
+bool inputBool(const string& text) {
     int choice;
     cout << text << " (1 - да, 0 - нет): ";
     choice = inputInt("", 0, 1);
@@ -139,6 +137,9 @@ void addTransport(Transport* transports[], int& count) {
         count++;
         break;
     }
+    default:
+        cout << "Неверный тип транспорта!" << endl;
+        break;
     }
     cout << "Транспорт добавлен!" << endl;
 }
@@ -224,6 +225,9 @@ int main() {
             break;
         case 4:
             cout << "Выход..." << endl;
+            break;
+        default:
+            cout << "Неверный выбор!" << endl;
             break;
         }
     } while (choice != 4);

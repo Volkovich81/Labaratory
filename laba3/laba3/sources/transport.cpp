@@ -1,7 +1,7 @@
 ﻿#include "transport.h"
 #include <iostream>
 
-Transport::Transport(std::string n, double s, double c, double w, int p)
+Transport::Transport(const std::string& n, double s, double c, double w, int p)
     : name(n), speed(s), cost_km(c), max_weight(w), max_people(p) {
 }
 
