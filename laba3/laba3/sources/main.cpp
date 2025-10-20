@@ -12,12 +12,11 @@ using namespace std;
 const int MAX_TRANSPORTS = 50;
 
 void setRussianLocale() {
-    // Только для Windows
+
 #ifdef _WIN32
     system("chcp 65001 > nul");
 #endif
 
-    // Универсальная установка локали
     setlocale(LC_ALL, "");
 }
 
@@ -28,8 +27,6 @@ string inputString(string text) {
     return str;
 }
 
-// Все остальные функции остаются БЕЗ ИЗМЕНЕНИЙ
-// [остальной код точно такой же как у тебя был]
 int inputInt(string text, int min, int max) {
     int num;
     while (true) {
