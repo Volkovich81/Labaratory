@@ -1,19 +1,18 @@
-#include "bicycle.h"
+Ôªø#include "bicycle.h"
 #include <iostream>
 
-Bicycle::Bicycle(std::string n, double s, double c, double w, int p,
+Bicycle::Bicycle(const std::string& n, double s, double c, double w, int p,  // ‚Üê –ò–°–ü–†–ê–í–õ–ï–ù–û
     bool b, int g)
-    : Transport(n, s, c, w, p) {
-    basket = b;
-    gears = g;
+    : Transport(n, s, c, w, p), basket(b), gears(g) {  // ‚Üê –ò–°–ü–†–ê–í–õ–ï–ù–û
+    // –¢–µ–ª–æ –∫–æ–Ω—Å—Ç—Ä—É–∫—Ç–æ—Ä–∞ –ø—É—Å—Ç–æ–µ - –≤—Å—ë –∏–Ω–∏—Ü–∏–∞–ª–∏–∑–∏—Ä–æ–≤–∞–Ω–æ –≤ —Å–ø–∏—Å–∫–µ
 }
 
 double Bicycle::getTime(double dist) {
     if (dist < 0) return 0;
 
-    double real_speed = getSpeed();  // ? »—œ–¿¬À≈ÕŒ
-    if (dist > 10) real_speed = getSpeed() * 0.9;  // ? »—œ–¿¬À≈ÕŒ
-    if (dist > 20) real_speed = getSpeed() * 0.8;  // ? »—œ–¿¬À≈ÕŒ
+    double real_speed = getSpeed();
+    if (dist > 10) real_speed = getSpeed() * 0.9;
+    if (dist > 20) real_speed = getSpeed() * 0.8;
 
     return dist / real_speed;
 }
@@ -23,7 +22,7 @@ double Bicycle::getCost(double dist, int people, double weight) {
     if (!checkPeople(people)) return 0;
     if (!checkWeight(weight)) return 0;
 
-    double cost = dist * getCostKm();  // ? »—œ–¿¬À≈ÕŒ
+    double cost = dist * getCostKm();
     if (basket && weight > 0) {
         cost += weight * 0.05;
     }
@@ -31,11 +30,11 @@ double Bicycle::getCost(double dist, int people, double weight) {
 }
 
 void Bicycle::showInfo() {
-    std::cout << "¬≈ÀŒ—»œ≈ƒ: " << getName() << std::endl;  // ? »—œ–¿¬À≈ÕŒ
-    std::cout << "  —ÍÓÓÒÚ¸: " << getSpeed() << " ÍÏ/˜" << std::endl;  // ? »—œ–¿¬À≈ÕŒ
-    std::cout << "  —ÚÓËÏÓÒÚ¸ Á‡ ÍÏ: " << getCostKm() << " Û·." << std::endl;  // ? »—œ–¿¬À≈ÕŒ
-    std::cout << "  √ÛÁ: " << getMaxWeight() << " Í„" << std::endl;  // ? »—œ–¿¬À≈ÕŒ
-    std::cout << "  œ‡ÒÒ‡ÊË˚: " << getMaxPeople() << " ˜ÂÎ." << std::endl;  // ? »—œ–¿¬À≈ÕŒ
-    std::cout << "   ÓÁËÌ‡: " << (basket ? "ÂÒÚ¸" : "ÌÂÚ") << std::endl;
-    std::cout << "  œÂÂ‰‡˜Ë: " << gears << std::endl;
+    std::cout << "–í–ï–õ–û–°–ò–ü–ï–î: " << getName() << std::endl;
+    std::cout << "  –°–∫–æ—Ä–æ—Å—Ç—å: " << getSpeed() << " –∫–º/—á" << std::endl;
+    std::cout << "  –°—Ç–æ–∏–º–æ—Å—Ç—å –∑–∞ –∫–º: " << getCostKm() << " —Ä—É–±." << std::endl;
+    std::cout << "  –ì—Ä—É–∑: " << getMaxWeight() << " –∫–≥" << std::endl;
+    std::cout << "  –ü–∞—Å—Å–∞–∂–∏—Ä—ã: " << getMaxPeople() << " —á–µ–ª." << std::endl;
+    std::cout << "  –ö–æ—Ä–∑–∏–Ω–∞: " << (basket ? "–µ—Å—Ç—å" : "–Ω–µ—Ç") << std::endl;
+    std::cout << "  –ü–µ—Ä–µ–¥–∞—á–∏: " << gears << std::endl;
 }

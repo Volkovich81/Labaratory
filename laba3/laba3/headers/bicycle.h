@@ -1,4 +1,4 @@
-#ifndef BICYCLE_H
+﻿#ifndef BICYCLE_H
 #define BICYCLE_H
 
 #include "transport.h"
@@ -8,7 +8,7 @@ class Bicycle : public Transport {
     int gears;
 
 public:
-    Bicycle(std::string n, double s, double c, double w, int p,
+    Bicycle(const std::string& n, double s, double c, double w, int p,  // ← ИСПРАВЛЕНО
         bool b, int g);
 
     double getTime(double dist) override;
