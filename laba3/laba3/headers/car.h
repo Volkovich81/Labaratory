@@ -1,4 +1,4 @@
-#ifndef CAR_H
+﻿#ifndef CAR_H
 #define CAR_H
 
 #include "transport.h"
@@ -8,8 +8,8 @@ class Car : public Transport {
     double fuel_use;
 
 public:
-    Car(std::string n, double s, double c, double w, int p,
-        std::string f, double fu);
+    Car(const std::string& n, double s, double c, double w, int p,  // ← ИСПРАВЛЕНО
+        const std::string& f, double fu);  // ← ИСПРАВЛЕНО
 
     double getTime(double dist) override;
     double getCost(double dist, int people, double weight) override;
