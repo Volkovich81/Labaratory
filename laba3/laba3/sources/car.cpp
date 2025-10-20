@@ -1,4 +1,4 @@
-#include "car.h"
+﻿#include "car.h"
 #include <iostream>
 
 Car::Car(std::string n, double s, double c, double w, int p,
@@ -10,7 +10,7 @@ Car::Car(std::string n, double s, double c, double w, int p,
 
 double Car::getTime(double dist) {
     if (dist < 0) return 0;
-    return dist / speed;
+    return dist / getSpeed();  // ← ИСПРАВЛЕНО
 }
 
 double Car::getCost(double dist, int people, double weight) {
@@ -18,7 +18,7 @@ double Car::getCost(double dist, int people, double weight) {
     if (!checkPeople(people)) return 0;
     if (!checkWeight(weight)) return 0;
 
-    double cost = dist * cost_km;
+    double cost = dist * getCostKm();  // ← ИСПРАВЛЕНО
     if (weight > 0) {
         cost += weight * 0.1;
     }
@@ -26,11 +26,11 @@ double Car::getCost(double dist, int people, double weight) {
 }
 
 void Car::showInfo() {
-    std::cout << "����������: " << name << std::endl;
-    std::cout << "  ��������: " << speed << " ��/�" << std::endl;
-    std::cout << "  ��������� �� ��: " << cost_km << " ���." << std::endl;
-    std::cout << "  ����: " << max_weight << " ��" << std::endl;
-    std::cout << "  ���������: " << max_people << " ���." << std::endl;
-    std::cout << "  �������: " << fuel << std::endl;
-    std::cout << "  ������: " << fuel_use << " �/100��" << std::endl;
+    std::cout << "АВТОМОБИЛЬ: " << getName() << std::endl;  // ← ИСПРАВЛЕНО
+    std::cout << "  Скорость: " << getSpeed() << " км/ч" << std::endl;  // ← ИСПРАВЛЕНО
+    std::cout << "  Стоимость за км: " << getCostKm() << " руб." << std::endl;  // ← ИСПРАВЛЕНО
+    std::cout << "  Груз: " << getMaxWeight() << " кг" << std::endl;  // ← ИСПРАВЛЕНО
+    std::cout << "  Пассажиры: " << getMaxPeople() << " чел." << std::endl;  // ← ИСПРАВЛЕНО
+    std::cout << "  Топливо: " << fuel << std::endl;
+    std::cout << "  Расход: " << fuel_use << " л/100км" << std::endl;
 }

@@ -5,7 +5,7 @@
 #include <string>
 
 class Transport {
-protected:
+private:
     std::string name;
     double speed;
     double cost_km;
@@ -14,20 +14,26 @@ protected:
 
 public:
     Transport(std::string n, double s, double c, double w, int p);
-    virtual ~Transport() {}
+    virtual ~Transport() = default;
 
     virtual double getTime(double dist) = 0;
     virtual double getCost(double dist, int people, double weight) = 0;
     virtual void showInfo() = 0;
 
-    std::string getName();
-    double getSpeed();
-    double getCostKm();
-    double getMaxWeight();
-    int getMaxPeople();
+    std::string getName() const;
+    double getSpeed() const;
+    double getCostKm() const;
+    double getMaxWeight() const;
+    int getMaxPeople() const;
 
-    bool checkPeople(int people);
-    bool checkWeight(double weight);
+    bool checkPeople(int people) const;
+    bool checkWeight(double weight) const;
+
+protected:
+    void setSpeed(double s);
+    void setCostKm(double c);
+    void setMaxWeight(double w);
+    void setMaxPeople(int p);
 };
 
 #endif

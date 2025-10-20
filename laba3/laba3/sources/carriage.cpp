@@ -1,4 +1,4 @@
-#include "carriage.h"
+﻿#include "carriage.h"
 #include <iostream>
 
 Carriage::Carriage(std::string n, double s, double c, double w, int p,
@@ -11,9 +11,9 @@ Carriage::Carriage(std::string n, double s, double c, double w, int p,
 double Carriage::getTime(double dist) {
     if (dist < 0) return 0;
 
-    double real_speed = speed;
-    if (dist > 15) real_speed = speed * 0.85;
-    if (dist > 30) real_speed = speed * 0.7;
+    double real_speed = getSpeed();  // ← ИСПРАВЛЕНО
+    if (dist > 15) real_speed = getSpeed() * 0.85;  // ← ИСПРАВЛЕНО
+    if (dist > 30) real_speed = getSpeed() * 0.7;  // ← ИСПРАВЛЕНО
 
     return dist / real_speed;
 }
@@ -23,7 +23,7 @@ double Carriage::getCost(double dist, int people, double weight) {
     if (!checkPeople(people)) return 0;
     if (!checkWeight(weight)) return 0;
 
-    double cost = dist * cost_km;
+    double cost = dist * getCostKm();  // ← ИСПРАВЛЕНО
     cost += horses * 2.0;
     if (covered) {
         cost += 5.0;
@@ -32,11 +32,11 @@ double Carriage::getCost(double dist, int people, double weight) {
 }
 
 void Carriage::showInfo() {
-    std::cout << "�������: " << name << std::endl;
-    std::cout << "  ��������: " << speed << " ��/�" << std::endl;
-    std::cout << "  ��������� �� ��: " << cost_km << " ���." << std::endl;
-    std::cout << "  ����: " << max_weight << " ��" << std::endl;
-    std::cout << "  ���������: " << max_people << " ���." << std::endl;
-    std::cout << "  ������: " << horses << std::endl;
-    std::cout << "  ������: " << (covered ? "��" : "���") << std::endl;
+    std::cout << "ПОВОЗКА: " << getName() << std::endl;  // ← ИСПРАВЛЕНО
+    std::cout << "  Скорость: " << getSpeed() << " км/ч" << std::endl;  // ← ИСПРАВЛЕНО
+    std::cout << "  Стоимость за км: " << getCostKm() << " руб." << std::endl;  // ← ИСПРАВЛЕНО
+    std::cout << "  Груз: " << getMaxWeight() << " кг" << std::endl;  // ← ИСПРАВЛЕНО
+    std::cout << "  Пассажиры: " << getMaxPeople() << " чел." << std::endl;  // ← ИСПРАВЛЕНО
+    std::cout << "  Лошади: " << horses << std::endl;
+    std::cout << "  Крытая: " << (covered ? "да" : "нет") << std::endl;
 }

@@ -11,9 +11,9 @@ Bicycle::Bicycle(std::string n, double s, double c, double w, int p,
 double Bicycle::getTime(double dist) {
     if (dist < 0) return 0;
 
-    double real_speed = speed;
-    if (dist > 10) real_speed = speed * 0.9;
-    if (dist > 20) real_speed = speed * 0.8;
+    double real_speed = getSpeed();  // ? ÈÑÏÐÀÂËÅÍÎ
+    if (dist > 10) real_speed = getSpeed() * 0.9;  // ? ÈÑÏÐÀÂËÅÍÎ
+    if (dist > 20) real_speed = getSpeed() * 0.8;  // ? ÈÑÏÐÀÂËÅÍÎ
 
     return dist / real_speed;
 }
@@ -23,7 +23,7 @@ double Bicycle::getCost(double dist, int people, double weight) {
     if (!checkPeople(people)) return 0;
     if (!checkWeight(weight)) return 0;
 
-    double cost = dist * cost_km;
+    double cost = dist * getCostKm();  // ? ÈÑÏÐÀÂËÅÍÎ
     if (basket && weight > 0) {
         cost += weight * 0.05;
     }
@@ -31,11 +31,11 @@ double Bicycle::getCost(double dist, int people, double weight) {
 }
 
 void Bicycle::showInfo() {
-    std::cout << "ÂÅËÎÑÈÏÅÄ: " << name << std::endl;
-    std::cout << "  Ñêîðîñòü: " << speed << " êì/÷" << std::endl;
-    std::cout << "  Ñòîèìîñòü çà êì: " << cost_km << " ðóá." << std::endl;
-    std::cout << "  Ãðóç: " << max_weight << " êã" << std::endl;
-    std::cout << "  Ïàññàæèðû: " << max_people << " ÷åë." << std::endl;
+    std::cout << "ÂÅËÎÑÈÏÅÄ: " << getName() << std::endl;  // ? ÈÑÏÐÀÂËÅÍÎ
+    std::cout << "  Ñêîðîñòü: " << getSpeed() << " êì/÷" << std::endl;  // ? ÈÑÏÐÀÂËÅÍÎ
+    std::cout << "  Ñòîèìîñòü çà êì: " << getCostKm() << " ðóá." << std::endl;  // ? ÈÑÏÐÀÂËÅÍÎ
+    std::cout << "  Ãðóç: " << getMaxWeight() << " êã" << std::endl;  // ? ÈÑÏÐÀÂËÅÍÎ
+    std::cout << "  Ïàññàæèðû: " << getMaxPeople() << " ÷åë." << std::endl;  // ? ÈÑÏÐÀÂËÅÍÎ
     std::cout << "  Êîðçèíà: " << (basket ? "åñòü" : "íåò") << std::endl;
     std::cout << "  Ïåðåäà÷è: " << gears << std::endl;
 }
