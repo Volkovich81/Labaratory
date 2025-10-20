@@ -2,7 +2,6 @@
 #include <string>
 #include <iomanip>
 #include <locale>
-#include <windows.h>
 #include "transport.h"
 #include "car.h"
 #include "bicycle.h"
@@ -13,11 +12,24 @@ using namespace std;
 const int MAX_TRANSPORTS = 50;
 
 void setRussianLocale() {
-    SetConsoleCP(1251);
-    SetConsoleOutputCP(1251);
-    setlocale(LC_ALL, "Russian");
+    // Только для Windows
+#ifdef _WIN32
+    system("chcp 65001 > nul");
+#endif
+
+    // Универсальная установка локали
+    setlocale(LC_ALL, "");
 }
 
+string inputString(string text) {
+    string str;
+    cout << text;
+    getline(cin, str);
+    return str;
+}
+
+// Все остальные функции остаются БЕЗ ИЗМЕНЕНИЙ
+// [остальной код точно такой же как у тебя был]
 int inputInt(string text, int min, int max) {
     int num;
     while (true) {
@@ -50,13 +62,6 @@ double inputDouble(string text, double min, double max) {
             return num;
         }
     }
-}
-
-string inputString(string text) {
-    string str;
-    cout << text;
-    getline(cin, str);
-    return str;
 }
 
 string inputFuelType() {
