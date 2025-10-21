@@ -8,8 +8,8 @@ class Car : public Transport {
     double fuel_use;
 
 public:
-    Car(const std::string& n, double s, double c, double w, int p,  // ← ИСПРАВЛЕНО
-        const std::string& f, double fu);  // ← ИСПРАВЛЕНО
+    Car(const std::string& n, double s, double c, double w, int p,  
+        const std::string& f, double fu);  
 
     double getTime(double dist) override;
     double getCost(double dist, int people, double weight) override;

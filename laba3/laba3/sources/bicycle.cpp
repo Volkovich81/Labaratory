@@ -1,10 +1,10 @@
 ﻿#include "bicycle.h"
 #include <iostream>
 
-Bicycle::Bicycle(const std::string& n, double s, double c, double w, int p,  // ← ИСПРАВЛЕНО
+Bicycle::Bicycle(const std::string& n, double s, double c, double w, int p,  
     bool b, int g)
-    : Transport(n, s, c, w, p), basket(b), gears(g) {  // ← ИСПРАВЛЕНО
-    // Тело конструктора пустое - всё инициализировано в списке
+    : Transport(n, s, c, w, p), basket(b), gears(g) {  
+   
 }
 
 double Bicycle::getTime(double dist) {

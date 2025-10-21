@@ -8,7 +8,7 @@ class Bicycle : public Transport {
     int gears;
 
 public:
-    Bicycle(const std::string& n, double s, double c, double w, int p,  // ← ИСПРАВЛЕНО
+    Bicycle(const std::string& n, double s, double c, double w, int p,  
         bool b, int g);
 
     double getTime(double dist) override;

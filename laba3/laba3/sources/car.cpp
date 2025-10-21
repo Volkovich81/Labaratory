@@ -1,9 +1,9 @@
 ﻿#include "car.h"
 #include <iostream>
 
-Car::Car(const std::string& n, double s, double c, double w, int p,  // ← ИСПРАВЛЕНО
-    const std::string& f, double fu)  // ← ИСПРАВЛЕНО
-    : Transport(n, s, c, w, p), fuel(f), fuel_use(fu) {  // ← ИСПРАВЛЕНО
+Car::Car(const std::string& n, double s, double c, double w, int p,  
+    const std::string& f, double fu)  
+    : Transport(n, s, c, w, p), fuel(f), fuel_use(fu) {  
 }
 
 double Car::getTime(double dist) {

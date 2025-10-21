@@ -1,9 +1,9 @@
 ﻿#include "carriage.h"
 #include <iostream>
 
-Carriage::Carriage(const std::string& n, double s, double c, double w, int p,  // ← ИСПРАВЛЕНО
+Carriage::Carriage(const std::string& n, double s, double c, double w, int p,  
     int h, bool cov)
-    : Transport(n, s, c, w, p), horses(h), covered(cov) {  // ← ИСПРАВЛЕНО
+    : Transport(n, s, c, w, p), horses(h), covered(cov) {  
 }
 
 double Carriage::getTime(double dist) {
