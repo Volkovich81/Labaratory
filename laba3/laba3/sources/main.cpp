@@ -205,9 +205,14 @@ int main() {
     array<Transport*, MAX_TRANSPORTS> transports{};
     int transportCount = 0;
 
-    transports[transportCount++] = new Car("Седан", 80, 2.5, 500, 4, "Бензин", 8.5);
-    transports[transportCount++] = new Bicycle("Горный", 15, 0.5, 20, 1, true, 21);
-    transports[transportCount++] = new Carriage("Карета", 10, 1.5, 1000, 6, 2, true);
+    transports[transportCount] = new Car("Седан", 80, 2.5, 500, 4, "Бензин", 8.5);
+    transportCount++;
+
+    transports[transportCount] = new Bicycle("Горный", 15, 0.5, 20, 1, true, 21);
+    transportCount++;
+
+    transports[transportCount] = new Carriage("Карета", 10, 1.5, 1000, 6, 2, true);
+    transportCount++;
 
     int choice;
     do {
