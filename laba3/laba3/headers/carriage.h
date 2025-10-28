@@ -8,7 +8,7 @@ class Carriage : public Transport {
     bool covered;
 
 public:
-    Carriage(const std::string& n, double s, double c, double w, int p,  // ← ИСПРАВЛЕНО
+    Carriage(const std::string& n, double s, double c, double w, int p,  
         int h, bool cov);
 
     double getTime(double dist) override;

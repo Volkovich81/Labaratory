@@ -2,6 +2,7 @@
 #include <string>
 #include <iomanip>
 #include <locale>
+#include <array>
 #include "transport.h"
 #include "car.h"
 #include "bicycle.h"
@@ -96,7 +97,7 @@ void showMenu() {
     cout << "==========================" << endl;
 }
 
-void addTransport(Transport* transports[], int& count) {
+void addTransport(array<Transport*, MAX_TRANSPORTS>& transports, int& count) {
     if (count >= MAX_TRANSPORTS) {
         cout << "Достигнут лимит транспорта!" << endl;
         return;
@@ -144,7 +145,7 @@ void addTransport(Transport* transports[], int& count) {
     cout << "Транспорт добавлен!" << endl;
 }
 
-void calculateTrip(Transport* transports[], int count) {
+void calculateTrip(array<Transport*, MAX_TRANSPORTS>& transports, int count) {
     if (count == 0) {
         cout << "Нет транспорта!" << endl;
         return;
@@ -182,7 +183,7 @@ void calculateTrip(Transport* transports[], int count) {
     cout << "==================" << endl;
 }
 
-void showAllTransports(Transport* transports[], int count) {
+void showAllTransports(array<Transport*, MAX_TRANSPORTS>& transports, int count) {
     if (count == 0) {
         cout << "Нет транспорта!" << endl;
         return;
@@ -201,7 +202,7 @@ void showAllTransports(Transport* transports[], int count) {
 int main() {
     setRussianLocale();
 
-    Transport* transports[MAX_TRANSPORTS];
+    array<Transport*, MAX_TRANSPORTS> transports{};
     int transportCount = 0;
 
     transports[transportCount++] = new Car("Седан", 80, 2.5, 500, 4, "Бензин", 8.5);

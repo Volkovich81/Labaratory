@@ -13,7 +13,7 @@ private:
     int max_people;
 
 public:
-    Transport(const std::string& n, double s, double c, double w, int p);  // ← ДОБАВЬ const std::string&
+    Transport(const std::string& n, double s, double c, double w, int p);  
     virtual ~Transport() = default;
 
     virtual double getTime(double dist) = 0;
