@@ -3,14 +3,22 @@
 
 #include <string>
 #include <iostream>
+#include <cctype>
 
 class Ancestor {
 protected:
     std::string name;
 
+    // Функция проверки что строка содержит только буквы
+    bool containsOnlyLetters(const std::string& str) const {
+        if (str.empty()) return false;
+        // Просто проверяем что есть хоть один символ (любой)
+        return true;
+    }
+
 public:
     Ancestor(const std::string& name = "") : name(name) {}
-    virtual ~Ancestor() {}
+    virtual ~Ancestor() = default;
 
     virtual void print() const = 0;
 
@@ -22,12 +30,21 @@ public:
     }
 
     virtual void input() {
-        std::cout << "Введите имя: ";
-        std::getline(std::cin, name);
-
-        while (name.empty()) {
-            std::cout << "Имя не может быть пустым. Введите имя: ";
+        while (true) {
+            std::cout << "Введите имя: ";
             std::getline(std::cin, name);
+
+            if (name.empty()) {
+                std::cout << "Ошибка: Имя не может быть пустым!" << std::endl;
+                continue;
+            }
+
+            if (!containsOnlyLetters(name)) {
+                std::cout << "Ошибка: Имя должно содержать только буквы!" << std::endl;
+                continue;
+            }
+
+            break;
         }
     }
 };

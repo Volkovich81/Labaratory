@@ -18,6 +18,7 @@ public:
     }
 
     std::string getPatronymic() const { return patronymic; }
+
     void setPatronymic(const std::string& newPatronymic) {
         if (!newPatronymic.empty()) {
             patronymic = newPatronymic;
@@ -25,20 +26,40 @@ public:
     }
 
     void input() override {
-        std::cout << "¬ведите им€ внука: ";
-        std::getline(std::cin, name);
-
-        while (name.empty()) {
-            std::cout << "»м€ внука не может быть пустым. ¬ведите им€: ";
+        // ¬вод имени
+        while (true) {
+            std::cout << "¬ведите им€ внука: ";
             std::getline(std::cin, name);
+
+            if (name.empty()) {
+                std::cout << "ќшибка: »м€ внука не может быть пустым!" << std::endl;
+                continue;
+            }
+
+            if (!containsOnlyLetters(name)) {
+                std::cout << "ќшибка: »м€ должно содержать только буквы!" << std::endl;
+                continue;
+            }
+
+            break;
         }
 
-        std::cout << "¬ведите отчество внука: ";
-        std::getline(std::cin, patronymic);
-
-        while (patronymic.empty()) {
-            std::cout << "ќтчество не может быть пустым. ¬ведите отчество: ";
+        // ¬вод отчества
+        while (true) {
+            std::cout << "¬ведите отчество внука: ";
             std::getline(std::cin, patronymic);
+
+            if (patronymic.empty()) {
+                std::cout << "ќшибка: ќтчество не может быть пустым!" << std::endl;
+                continue;
+            }
+
+            if (!containsOnlyLetters(patronymic)) {
+                std::cout << "ќшибка: ќтчество должно содержать только буквы!" << std::endl;
+                continue;
+            }
+
+            break;
         }
     }
 };

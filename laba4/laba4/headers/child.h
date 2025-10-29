@@ -13,12 +13,21 @@ public:
     }
 
     void input() override {
-        std::cout << "Введите имя ребенка: ";
-        std::getline(std::cin, name);
-
-        while (name.empty()) {
-            std::cout << "Имя ребенка не может быть пустым. Введите имя: ";
+        while (true) {
+            std::cout << "Введите имя ребенка: ";
             std::getline(std::cin, name);
+
+            if (name.empty()) {
+                std::cout << "Ошибка: Имя ребенка не может быть пустым!" << std::endl;
+                continue;
+            }
+
+            if (!containsOnlyLetters(name)) {
+                std::cout << "Ошибка: Имя должно содержать только буквы!" << std::endl;
+                continue;
+            }
+
+            break;
         }
     }
 };
