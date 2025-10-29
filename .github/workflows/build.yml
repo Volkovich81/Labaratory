@@ -43,8 +43,8 @@ jobs:
           mkdir -p laba3/build
           cmake -S laba3 -B laba3/build
           build-wrapper-linux-x86-64 --out-dir laba3/build_wrapper cmake --build laba3/build --config Release
-          
-       - name: Build laba4
+
+      - name: Build laba4
         run: |
           rm -rf laba4/build
           mkdir -p laba4/build
@@ -99,7 +99,7 @@ jobs:
             -Dsonar.issue.ignore.multicriteria.e1.ruleKey=cxx:S5025
             -Dsonar.issue.ignore.multicriteria.e1.resourceKey=**/*
 
-             - name: SonarCloud scan laba4
+      - name: SonarCloud scan laba4
         uses: SonarSource/sonarqube-scan-action@v6
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
