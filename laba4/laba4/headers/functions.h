@@ -4,6 +4,8 @@
 #include <iostream>
 #include <string>
 
+const int MAX_OBJECTS = 10;  // максимальное количество объектов
+
 inline int getValidNumber(const std::string& prompt, const int min, const int max) {
     int number;
     std::cout << prompt;

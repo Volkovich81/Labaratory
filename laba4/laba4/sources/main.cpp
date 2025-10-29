@@ -14,8 +14,10 @@ int main() {
     SetConsoleOutputCP(1251);
 #endif
 
-    Child child;
-    Grandchild grandchild;
+    Child children[MAX_OBJECTS];
+    Grandchild grandchildren[MAX_OBJECTS];
+    int childCount = 0;
+    int grandchildCount = 0;
 
     int choice;
 
@@ -23,45 +25,63 @@ int main() {
         std::cout << "\n=== Меню ===" << std::endl;
         std::cout << "1. Ввести данные ребенка" << std::endl;
         std::cout << "2. Ввести данные внука" << std::endl;
-        std::cout << "3. Показать данные ребенка" << std::endl;
-        std::cout << "4. Показать данные внука" << std::endl;
+        std::cout << "3. Показать всех детей" << std::endl;
+        std::cout << "4. Показать всех внуков" << std::endl;
         std::cout << "0. Выход" << std::endl;
 
         choice = getValidNumber("Выберите действие: ", 0, 4);
 
         switch (choice) {
         case 1: {
-            std::cout << "\n--- Ввод данных ребенка ---" << std::endl;
-            child.input();
-            std::cout << "Данные ребенка сохранены!" << std::endl;
+            if (childCount < MAX_OBJECTS) {
+                std::cout << "\n--- Ввод данных ребенка " << (childCount + 1) << " ---" << std::endl;
+                children[childCount].input();
+                childCount++;
+                std::cout << "Данные ребенка сохранены!" << std::endl;
+            }
+            else {
+                std::cout << "Достигнут максимум детей (" << MAX_OBJECTS << ")!" << std::endl;
+            }
             break;
         }
 
         case 2: {
-            std::cout << "\n--- Ввод данных внука ---" << std::endl;
-            grandchild.input();
-            std::cout << "Данные внука сохранены!" << std::endl;
+            if (grandchildCount < MAX_OBJECTS) {
+                std::cout << "\n--- Ввод данных внука " << (grandchildCount + 1) << " ---" << std::endl;
+                grandchildren[grandchildCount].input();
+                grandchildCount++;
+                std::cout << "Данные внука сохранены!" << std::endl;
+            }
+            else {
+                std::cout << "Достигнут максимум внуков (" << MAX_OBJECTS << ")!" << std::endl;
+            }
             break;
         }
 
         case 3: {
-            std::cout << "\n--- Данные ребенка ---" << std::endl;
-            if (!child.getName().empty()) {
-                child.print();
+            std::cout << "\n--- Все дети (" << childCount << ") ---" << std::endl;
+            if (childCount > 0) {
+                for (int i = 0; i < childCount; i++) {
+                    std::cout << (i + 1) << ". ";
+                    children[i].print();
+                }
             }
             else {
-                std::cout << "Данные ребенка не введены!" << std::endl;
+                std::cout << "Дети не введены!" << std::endl;
             }
             break;
         }
 
         case 4: {
-            std::cout << "\n--- Данные внука ---" << std::endl;
-            if (!grandchild.getName().empty()) {
-                grandchild.print();
+            std::cout << "\n--- Все внуки (" << grandchildCount << ") ---" << std::endl;
+            if (grandchildCount > 0) {
+                for (int i = 0; i < grandchildCount; i++) {
+                    std::cout << (i + 1) << ". ";
+                    grandchildren[i].print();
+                }
             }
             else {
-                std::cout << "Данные внука не введены!" << std::endl;
+                std::cout << "Внуки не введены!" << std::endl;
             }
             break;
         }
@@ -71,7 +91,7 @@ int main() {
             break;
         }
 
-        default: {  // добавляем default case
+        default: {
             std::cout << "Неверный выбор!" << std::endl;
             break;
         }
