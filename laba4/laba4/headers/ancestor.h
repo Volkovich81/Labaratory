@@ -5,17 +5,17 @@
 #include <iostream>
 
 class Ancestor {
-private:  // меняем protected на private
+private:
     std::string name;
 
 public:
-    explicit Ancestor(const std::string& name = "") : name(name) {}  // explicit
+    explicit Ancestor(const std::string& name = "") : name(name) {}
     virtual ~Ancestor() = default;
 
     virtual void print() const = 0;
 
     std::string getName() const { return name; }
-    void setName(const std::string& newName) {  // const string&
+    void setName(const std::string& newName) {
         if (!newName.empty()) {
             name = newName;
         }

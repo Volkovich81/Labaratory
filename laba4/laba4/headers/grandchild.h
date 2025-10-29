@@ -9,17 +9,17 @@ private:
     std::string patronymic;
 
 public:
-    explicit Grandchild(const std::string& name = "", const std::string& patronymic = "")  // explicit
+    explicit Grandchild(const std::string& name = "", const std::string& patronymic = "")
         : Child(name), patronymic(patronymic) {
     }
 
     void print() const override {
-        std::cout << "Внук: " << getName() << " " << patronymic << std::endl;  // используем getter
+        std::cout << "Внук: " << getName() << " " << patronymic << std::endl;
     }
 
     std::string getPatronymic() const { return patronymic; }
 
-    void setPatronymic(const std::string& newPatronymic) {  // const string&
+    void setPatronymic(const std::string& newPatronymic) {
         if (!newPatronymic.empty()) {
             patronymic = newPatronymic;
         }

@@ -8,10 +8,8 @@ class Child : public Ancestor {
 public:
     using Ancestor::Ancestor;  // наследуем конструкторы
 
-    explicit Child(const std::string& name = "") : Ancestor(name) {}  // explicit
-
     void print() const override {
-        std::cout << "Ребенок: " << getName() << std::endl;  // используем getter
+        std::cout << "Ребенок: " << getName() << std::endl;
     }
 
     void input() override {
