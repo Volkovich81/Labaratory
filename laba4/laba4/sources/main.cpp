@@ -70,6 +70,11 @@ int main() {
             std::cout << "Выход..." << std::endl;
             break;
         }
+
+        default: {  // добавляем default case
+            std::cout << "Неверный выбор!" << std::endl;
+            break;
+        }
         }
 
     } while (choice != 0);

@@ -6,29 +6,24 @@
 
 class Child : public Ancestor {
 public:
-    Child(const std::string& name = "") : Ancestor(name) {}
+    using Ancestor::Ancestor;  // наследуем конструкторы
+
+    explicit Child(const std::string& name = "") : Ancestor(name) {}  // explicit
 
     void print() const override {
-        std::cout << "Ребенок: " << name << std::endl;
+        std::cout << "Ребенок: " << getName() << std::endl;  // используем getter
     }
 
     void input() override {
-        while (true) {
-            std::cout << "Введите имя ребенка: ";
+        std::cout << "Введите имя ребенка: ";
+        std::string name;
+        std::getline(std::cin, name);
+
+        while (name.empty()) {
+            std::cout << "Имя ребенка не может быть пустым. Введите имя: ";
             std::getline(std::cin, name);
-
-            if (name.empty()) {
-                std::cout << "Ошибка: Имя ребенка не может быть пустым!" << std::endl;
-                continue;
-            }
-
-            if (!containsOnlyLetters(name)) {
-                std::cout << "Ошибка: Имя должно содержать только буквы!" << std::endl;
-                continue;
-            }
-
-            break;
         }
+        setName(name);
     }
 };
 

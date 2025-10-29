@@ -9,57 +9,39 @@ private:
     std::string patronymic;
 
 public:
-    Grandchild(const std::string& name = "", const std::string& patronymic = "")
+    explicit Grandchild(const std::string& name = "", const std::string& patronymic = "")  // explicit
         : Child(name), patronymic(patronymic) {
     }
 
     void print() const override {
-        std::cout << "¬нук: " << name << " " << patronymic << std::endl;
+        std::cout << "¬нук: " << getName() << " " << patronymic << std::endl;  // используем getter
     }
 
     std::string getPatronymic() const { return patronymic; }
 
-    void setPatronymic(const std::string& newPatronymic) {
+    void setPatronymic(const std::string& newPatronymic) {  // const string&
         if (!newPatronymic.empty()) {
             patronymic = newPatronymic;
         }
     }
 
     void input() override {
-        // ¬вод имени
-        while (true) {
-            std::cout << "¬ведите им€ внука: ";
+        std::cout << "¬ведите им€ внука: ";
+        std::string name;
+        std::getline(std::cin, name);
+
+        while (name.empty()) {
+            std::cout << "»м€ внука не может быть пустым. ¬ведите им€: ";
             std::getline(std::cin, name);
-
-            if (name.empty()) {
-                std::cout << "ќшибка: »м€ внука не может быть пустым!" << std::endl;
-                continue;
-            }
-
-            if (!containsOnlyLetters(name)) {
-                std::cout << "ќшибка: »м€ должно содержать только буквы!" << std::endl;
-                continue;
-            }
-
-            break;
         }
+        setName(name);
 
-        // ¬вод отчества
-        while (true) {
-            std::cout << "¬ведите отчество внука: ";
+        std::cout << "¬ведите отчество внука: ";
+        std::getline(std::cin, patronymic);
+
+        while (patronymic.empty()) {
+            std::cout << "ќтчество не может быть пустым. ¬ведите отчество: ";
             std::getline(std::cin, patronymic);
-
-            if (patronymic.empty()) {
-                std::cout << "ќшибка: ќтчество не может быть пустым!" << std::endl;
-                continue;
-            }
-
-            if (!containsOnlyLetters(patronymic)) {
-                std::cout << "ќшибка: ќтчество должно содержать только буквы!" << std::endl;
-                continue;
-            }
-
-            break;
         }
     }
 };
