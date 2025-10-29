@@ -6,7 +6,7 @@
 
 class Child : public Ancestor {
 public:
-    using Ancestor::Ancestor;  // наследуем конструкторы
+    using Ancestor::Ancestor;
 
     void print() const override {
         std::cout << "Ребенок: " << getName() << std::endl;

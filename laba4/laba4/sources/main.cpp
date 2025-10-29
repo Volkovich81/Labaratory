@@ -1,4 +1,5 @@
 ﻿#include <iostream>
+#include <array>
 #include "../headers/ancestor.h"
 #include "../headers/child.h"
 #include "../headers/grandchild.h"
@@ -8,14 +9,40 @@
 #include <windows.h>
 #endif
 
+void showAllChildren(const std::array<Child, MAX_OBJECTS>& children, int count) {
+    std::cout << "\n--- Все дети (" << count << ") ---" << std::endl;
+    if (count > 0) {
+        for (int i = 0; i < count; i++) {
+            std::cout << (i + 1) << ". ";
+            children[i].print();
+        }
+    }
+    else {
+        std::cout << "Дети не введены!" << std::endl;
+    }
+}
+
+void showAllGrandchildren(const std::array<Grandchild, MAX_OBJECTS>& grandchildren, int count) {
+    std::cout << "\n--- Все внуки (" << count << ") ---" << std::endl;
+    if (count > 0) {
+        for (int i = 0; i < count; i++) {
+            std::cout << (i + 1) << ". ";
+            grandchildren[i].print();
+        }
+    }
+    else {
+        std::cout << "Внуки не введены!" << std::endl;
+    }
+}
+
 int main() {
 #ifdef _WIN32
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
 #endif
 
-    Child children[MAX_OBJECTS];
-    Grandchild grandchildren[MAX_OBJECTS];
+    std::array<Child, MAX_OBJECTS> children;
+    std::array<Grandchild, MAX_OBJECTS> grandchildren;
     int childCount = 0;
     int grandchildCount = 0;
 
@@ -59,30 +86,12 @@ int main() {
         }
 
         case 3: {
-            std::cout << "\n--- Все дети (" << childCount << ") ---" << std::endl;
-            if (childCount > 0) {
-                for (int i = 0; i < childCount; i++) {
-                    std::cout << (i + 1) << ". ";
-                    children[i].print();
-                }
-            }
-            else {
-                std::cout << "Дети не введены!" << std::endl;
-            }
+            showAllChildren(children, childCount);
             break;
         }
 
         case 4: {
-            std::cout << "\n--- Все внуки (" << grandchildCount << ") ---" << std::endl;
-            if (grandchildCount > 0) {
-                for (int i = 0; i < grandchildCount; i++) {
-                    std::cout << (i + 1) << ". ";
-                    grandchildren[i].print();
-                }
-            }
-            else {
-                std::cout << "Внуки не введены!" << std::endl;
-            }
+            showAllGrandchildren(grandchildren, grandchildCount);
             break;
         }
 

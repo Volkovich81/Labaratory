@@ -3,8 +3,9 @@
 
 #include <iostream>
 #include <string>
+#include <array>
 
-const int MAX_OBJECTS = 10;  // максимальное количество объектов
+const int MAX_OBJECTS = 10;
 
 inline int getValidNumber(const std::string& prompt, const int min, const int max) {
     int number;
