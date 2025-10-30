@@ -362,9 +362,11 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
-# Visual Studio C++ project user options and filters
-*.vcxproj.user
-*.vcxproj.filters
+# Visual Studio C++ project files
+**/*.vcxproj.user
+**/*.vcxproj.filters
+laba*/*/*.vcxproj.user
+laba*/*/*.vcxproj.filters
 
 # Files built by Visual Studio
 *_i.c
