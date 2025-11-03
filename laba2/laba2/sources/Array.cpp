@@ -120,7 +120,7 @@ Array Array::intersect(const Array& other) const {
     return result;
 }
 
-Array Array::unite(const Array& other) const {
+/*Array Array::unite(const Array& other) const {
     Array result;
 
     int totalSize = size + other.size;
@@ -171,8 +171,29 @@ Array Array::unite(const Array& other) const {
     for (int i = 0; i < idx; ++i) {
         result.data[i] = temp.data[i];
     }
-    return result;
+    return result;*/
 }
+
+
+/*Array Array::concat(const Array& other) const {
+    Array result;
+
+    int totalSize = size + other.size;
+    result.resize(totalSize);
+
+    for (int i = 0; i < size; ++i) {
+        result.data[i] = data[i];
+    }
+
+    for (int i = 0; i < other.size; ++i) {
+        result.data[size + i] = other.data[i];
+    }
+
+    return result;
+}*/
+
+
+
 
 
 
