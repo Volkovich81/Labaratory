@@ -31,7 +31,7 @@ add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
 
 # Добавить include-путь к заголовкам
 target_include_directories(${PROJECT_NAME} PRIVATE
-  ${CMAKE_SOURCE_DIR}/laba2/headers
+  ${CMAKE_SOURCE_DIR}/laba2.1/headers
 )
 
 # Рекомендации: дополнительные опции компилятора (по желанию)
