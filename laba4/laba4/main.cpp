@@ -9,7 +9,6 @@
 #endif
 
 int main() {
-    // Устанавливаем кодировку консоли только для Windows
 #ifdef _WIN32
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);

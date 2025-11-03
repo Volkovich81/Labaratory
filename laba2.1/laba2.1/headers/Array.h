@@ -21,12 +21,15 @@ public:
     void resize(int newSize);
 
     Array intersect(const Array& other) const;
-    Array unite(const Array& other) const;
+    /* Array unite(const Array& other) const;
+     Array concat(const Array& other) const;*/
 
     friend Array operator&(const Array& lhs, const Array& rhs) {
         return lhs.intersect(rhs);
     }
-
+    /*friend Array operator|(const Array& lhs, const Array& rhs) {
+        return lhs.unite(rhs);
+    }*/
     int& operator[](int index);
     const int& operator[](int index) const;
 

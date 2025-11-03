@@ -1,9 +1,9 @@
-ï»¿#include <iostream>
+#include <iostream>
 #include <string>
 #include <cctype>
 #include <clocale>
 
-#include "Array.h"
+#include "../headers/Array.h"
 
 bool allDigits(const std::string& s, size_t start = 0) {
     for (size_t i = start; i < s.size(); ++i) {
@@ -51,11 +51,11 @@ void inputArray(Array& arr) {
     int n = 0;
 
     while (true) {
-        std::cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ñ€Ð°Ð·Ð¼ÐµÑ€ Ð¼Ð°ÑÑÐ¸Ð²Ð° (>0): ";
+        std::cout << "Ââåäèòå ðàçìåð ìàññèâà (>0): ";
         std::getline(std::cin, line);
 
         if (!isPositiveInteger(line)) {
-            std::cout << "ÐžÑˆÐ¸Ð±ÐºÐ°: Ð²Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¿Ð¾Ð»Ð¾Ð¶Ð¸Ñ‚ÐµÐ»ÑŒÐ½Ð¾Ðµ Ñ†ÐµÐ»Ð¾Ðµ Ñ‡Ð¸ÑÐ»Ð¾.\n";
+            std::cout << "Îøèáêà: ââåäèòå ïîëîæèòåëüíîå öåëîå ÷èñëî.\n";
             continue;
         }
 
@@ -65,7 +65,7 @@ void inputArray(Array& arr) {
         }
 
         if (n <= 0) {
-            std::cout << "ÐžÑˆÐ¸Ð±ÐºÐ°: Ñ‡Ð¸ÑÐ»Ð¾ Ð´Ð¾Ð»Ð¶Ð½Ð¾ Ð±Ñ‹Ñ‚ÑŒ Ð±Ð¾Ð»ÑŒÑˆÐµ 0.\n";
+            std::cout << "Îøèáêà: ÷èñëî äîëæíî áûòü áîëüøå 0.\n";
             continue;
         }
         break;
@@ -75,10 +75,10 @@ void inputArray(Array& arr) {
 
     for (int i = 0; i < n; ++i) {
         while (true) {
-            std::cout << "Ð­Ð»ÐµÐ¼ÐµÐ½Ñ‚ [" << i << "] = ";
+            std::cout << "Ýëåìåíò [" << i << "] = ";
             std::getline(std::cin, line);
             if (!isIntegerString(line)) {
-                std::cout << "ÐžÑˆÐ¸Ð±ÐºÐ°: Ð²Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ñ†ÐµÐ»Ð¾Ðµ Ñ‡Ð¸ÑÐ»Ð¾.\n";
+                std::cout << "Îøèáêà: ââåäèòå öåëîå ÷èñëî.\n";
                 continue;
             }
             int val = parseInt(line);
@@ -100,20 +100,20 @@ int main() {
     Array c;
 
     while (true) {
-        std::cout << "\nÐœÐµÐ½ÑŽ:\n"
-            << "1. Ð’Ð²ÐµÑÑ‚Ð¸ Ð¿ÐµÑ€Ð²Ñ‹Ð¹ Ð¼Ð°ÑÑÐ¸Ð²\n"
-            << "2. Ð’Ð²ÐµÑÑ‚Ð¸ Ð²Ñ‚Ð¾Ñ€Ð¾Ð¹ Ð¼Ð°ÑÑÐ¸Ð²\n"
-            << "3. ÐÐ°Ð¹Ñ‚Ð¸ Ð¿ÐµÑ€ÐµÑÐµÑ‡ÐµÐ½Ð¸Ðµ Ð¼Ð°ÑÑÐ¸Ð²Ð¾Ð²\n"
-            << "4. ÐÐ°Ð¹Ñ‚Ð¸ Ð¾Ð±ÑŠÐµÐ´ÐµÐ½ÐµÐ½Ð¸Ðµ Ð¼Ð°ÑÑÐ¸Ð²Ð¾Ð²\n"
-            << "5. Ð’Ñ‹Ð²ÐµÑÑ‚Ð¸ Ð¼Ð°ÑÑÐ¸Ð²Ñ‹\n"
-            << "6. Ð’Ñ‹Ñ…Ð¾Ð´\n"
-            << "Ð’Ð°Ñˆ Ð²Ñ‹Ð±Ð¾Ñ€: ";
+        std::cout << "\nÌåíþ:\n"
+            << "1. Ââåñòè ïåðâûé ìàññèâ\n"
+            << "2. Ââåñòè âòîðîé ìàññèâ\n"
+            << "3. Íàéòè ïåðåñå÷åíèå ìàññèâîâ\n"
+            /* << "4. Íàéòè îáúåäåíåíèå ìàññèâîâ\n"*/
+            << "4. Âûâåñòè ìàññèâû\n"
+            << "5. Âûõîä\n"
+            << "Âàø âûáîð: ";
 
         std::string choiceLine;
         std::getline(std::cin, choiceLine);
 
         if (choiceLine.empty() || choiceLine.size() > 1 || !std::isdigit(static_cast<unsigned char>(choiceLine[0]))) {
-            std::cout << "ÐžÑˆÐ¸Ð±ÐºÐ°: Ð²Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ñ‡Ð¸ÑÐ»Ð¾ Ð¾Ñ‚ 1 Ð´Ð¾ 5.\n";
+            std::cout << "Îøèáêà: ââåäèòå ÷èñëî îò 1 äî 5.\n";
             continue;
         }
 
@@ -128,32 +128,32 @@ int main() {
             break;
         case 3:
             if (a.getSize() == 0 || b.getSize() == 0)
-                std::cout << "ÐœÐ°ÑÑÐ¸Ð²Ñ‹ Ð½Ðµ Ð·Ð°Ð¿Ð¾Ð»Ð½ÐµÐ½Ñ‹.\n";
+                std::cout << "Ìàññèâû íå çàïîëíåíû.\n";
             else {
                 c = a & b;
-                std::cout << "ÐŸÐµÑ€ÐµÑÐµÑ‡ÐµÐ½Ð¸Ðµ: " << c << "\n";
+                std::cout << "Ïåðåñå÷åíèå: " << c << "\n";
             }
             break;
+            /* case 4:
+                 if (a.getSize() == 0 || b.getSize() == 0)
+                     std::cout << "Ìàññèâû íå çàïîëíåíû.\n";
+                 else {
+                     c = a | b;
+                     std::cout << "Îáúåäèíåíèå: " << c << "\n";
+                 }
+                 break;*/
         case 4:
-            if (a.getSize() == 0 || b.getSize() == 0)
-                std::cout << "ÐœÐ°ÑÑÐ¸Ð²Ñ‹ Ð½Ðµ Ð·Ð°Ð¿Ð¾Ð»Ð½ÐµÐ½Ñ‹.\n";
-            else {
-                c = a | b;
-                std::cout << "ÐžÐ±ÑŠÐµÐ´Ð¸Ð½ÐµÐ½Ð¸Ðµ: " << c << "\n";
-            }
-            break;
-        case 5:
-            std::cout << "ÐŸÐµÑ€Ð²Ñ‹Ð¹ Ð¼Ð°ÑÑÐ¸Ð²: ";
+            std::cout << "Ïåðâûé ìàññèâ: ";
             printArray(a);
-            std::cout << "Ð’Ñ‚Ð¾Ñ€Ð¾Ð¹ Ð¼Ð°ÑÑÐ¸Ð²: ";
+            std::cout << "Âòîðîé ìàññèâ: ";
             printArray(b);
-            std::cout << "ÐŸÐµÑ€ÐµÑÐµÑ‡ÐµÐ½Ð¸Ðµ: ";
+            std::cout << "Ïåðåñå÷åíèå: ";
             printArray(c);
             break;
-        case 6:
+        case 5:
             return 0;
         default:
-            std::cout << "ÐÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ Ð²Ñ‹Ð±Ð¾Ñ€.\n";
+            std::cout << "Íåâåðíûé âûáîð.\n";
         }
     }
 }

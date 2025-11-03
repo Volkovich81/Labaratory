@@ -1,0 +1,3 @@
+C:/Labaratory/laba2/build/CMakeFiles/laba2.dir
+C:/Labaratory/laba2/build/CMakeFiles/ALL_BUILD.dir
+C:/Labaratory/laba2/build/CMakeFiles/ZERO_CHECK.dir
