@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
 
 # Название проекта и стандарт C++
-project(laba2 VERSION 1.0 LANGUAGES CXX)
+project(laba2.1 VERSION 1.0 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
@@ -15,12 +15,12 @@ endif()
 
 # Пути к исходникам и заголовкам (относительно корня, где лежит этот CMakeLists.txt)
 set(SOURCES
-  ${CMAKE_SOURCE_DIR}/laba2/sources/main.cpp
-  ${CMAKE_SOURCE_DIR}/laba2/sources/Array.cpp
+  ${CMAKE_SOURCE_DIR}/laba2.1/sources/main.cpp
+  ${CMAKE_SOURCE_DIR}/laba2.1/sources/Array.cpp
 )
 
 set(HEADERS
-  ${CMAKE_SOURCE_DIR}/laba2/headers/Array.h
+  ${CMAKE_SOURCE_DIR}/laba2.1/headers/Array.h
 )
 
 # Автоматически добавить все .cpp в sources (альтернатива ручному перечислению)
