@@ -20,8 +20,8 @@ set(SOURCES
 )
 
 set(HEADERS
-  ${CMAKE_SOURCE_DIR}/laba4/headers/menu.h
-  ${CMAKE_SOURCE_DIR}/laba4/headers/utils.h
+  ${CMAKE_SOURCE_DIR}/laba5/headers/menu.h
+  ${CMAKE_SOURCE_DIR}/laba5/headers/utils.h
 )
 
 # Автоматически добавить все .cpp в sources (альтернатива ручному перечислению)
