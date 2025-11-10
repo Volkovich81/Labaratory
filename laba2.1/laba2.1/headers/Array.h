@@ -14,15 +14,15 @@ public:
     Array(const Array& other);
     Array& operator=(const Array& other);
     ~Array();
-
+ 
     int getSize() const { return size; }
     int get(int index) const;
     void set(int index, int value);
     void resize(int newSize);
 
     Array intersect(const Array& other) const;
-    /* Array unite(const Array& other) const;
-     Array concat(const Array& other) const;*/
+    /* Array unite(const Array& other) const;*/
+     Array concat(const Array& other) const;
 
     friend Array operator&(const Array& lhs, const Array& rhs) {
         return lhs.intersect(rhs);

@@ -107,6 +107,7 @@ int main() {
             /* << "4. Найти объеденение массивов\n"*/
             << "4. Вывести массивы\n"
             << "5. Выход\n"
+            << "6. Функция\n"
             << "Ваш выбор: ";
 
         std::string choiceLine;
@@ -152,6 +153,14 @@ int main() {
             break;
         case 5:
             return 0;
+        case 6:
+            if (a.getSize() == 0 || b.getSize() == 0)
+                std::cout << "Массивы не заполнены.\n";
+            else {
+                c = a.concat(b);
+                std::cout << "Функция: " << c << "\n";
+            }
+            break;
         default:
             std::cout << "Неверный выбор.\n";
         }

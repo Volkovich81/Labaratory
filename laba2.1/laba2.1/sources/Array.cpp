@@ -77,6 +77,23 @@ void Array::resize(int newSize) {
     size = newSize;
 }
 
+Array Array::concat(const Array& other) const {
+    Array result;
+
+    int totalSize = size + other.size;
+    result.resize(totalSize);
+
+    for (int i = 0; i < size;  ++i) {
+        result.data[i] = data[i];
+    }
+
+    for (int i = 0; i < other.size; ++i) {
+        result.data[size + i] = other.data[i];
+    }
+
+    return result;
+}
+
 Array Array::intersect(const Array& other) const {
     Array result;
     if (size == 0 || other.size == 0)
