@@ -58,12 +58,11 @@ jobs:
           cmake -S laba5 -B laba5/build
           build-wrapper-linux-x86-64 --out-dir laba5/build_wrapper cmake --build laba5/build --config Release
 
-      - name: Build laba6
+      - name: Skip laba6 build on Linux
         run: |
-          rm -rf laba6/build
-          mkdir -p laba6/build
-          cmake -S laba6 -B laba6/build
-          build-wrapper-linux-x86-64 --out-dir laba6/build_wrapper cmake --build laba6/build --config Release
+          echo "Skipping laba6 build on Linux - requires Windows (windows.h)"
+          mkdir -p laba6/build_wrapper
+          touch laba6/build_wrapper/build-wrapper-dump.json
 
       - name: SonarCloud scan laba1
         uses: SonarSource/sonarqube-scan-action@v6
@@ -160,3 +159,20 @@ jobs:
             -Dsonar.issue.ignore.multicriteria=e1
             -Dsonar.issue.ignore.multicriteria.e1.ruleKey=cxx:S5025
             -Dsonar.issue.ignore.multicriteria.e1.resourceKey=**/*
+
+  build-windows:
+    runs-on: windows-latest
+    needs: build-and-scan
+    if: always()
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build laba6 on Windows
+        run: |
+          cd laba6
+          mkdir build
+          cd build
+          cmake ..
+          cmake --build . --config Release
