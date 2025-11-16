@@ -9,7 +9,7 @@ on:
 
 jobs:
   build-and-scan:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     env:
       SONAR_ORG: volkovich81
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -20,62 +20,56 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install Build Wrapper
-        uses: SonarSource/sonarqube-scan-action/install-build-wrapper@v4
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1
 
       - name: Build laba1
         run: |
-          rm -rf laba1/build
-          mkdir -p laba1/build
-          cmake -S laba1 -B laba1/build
-          build-wrapper-linux-x86-64 --out-dir laba1/build_wrapper cmake --build laba1/build --config Release
+          cd laba1
+          mkdir build
+          cd build
+          cmake ..
+          msbuild laba1.sln /p:Configuration=Release
 
       - name: Build laba2.1
         run: |
-          rm -rf laba2.1/build
-          mkdir -p laba2.1/build
-          cmake -S laba2.1 -B laba2.1/build
-          build-wrapper-linux-x86-64 --out-dir laba2.1/build_wrapper cmake --build laba2.1/build --config Release
+          cd laba2.1
+          mkdir build
+          cd build
+          cmake ..
+          msbuild laba2.1.sln /p:Configuration=Release
 
       - name: Build laba3
         run: |
-          rm -rf laba3/build
-          mkdir -p laba3/build
-          cmake -S laba3 -B laba3/build
-          build-wrapper-linux-x86-64 --out-dir laba3/build_wrapper cmake --build laba3/build --config Release
+          cd laba3
+          mkdir build
+          cd build
+          cmake ..
+          msbuild laba3.sln /p:Configuration=Release
 
       - name: Build laba4
         run: |
-          rm -rf laba4/build
-          mkdir -p laba4/build
-          cmake -S laba4 -B laba4/build
-          build-wrapper-linux-x86-64 --out-dir laba4/build_wrapper cmake --build laba4/build --config Release
+          cd laba4
+          mkdir build
+          cd build
+          cmake ..
+          msbuild laba4.sln /p:Configuration=Release
           
       - name: Build laba5
         run: |
-          rm -rf laba5/build
-          mkdir -p laba5/build
-          cmake -S laba5 -B laba5/build
-          build-wrapper-linux-x86-64 --out-dir laba5/build_wrapper cmake --build laba5/build --config Release
+          cd laba5
+          mkdir build
+          cd build
+          cmake ..
+          msbuild laba5.sln /p:Configuration=Release
 
-      - name: Create valid build-wrapper for laba6
+      - name: Build laba6
         run: |
-          mkdir -p laba6/build_wrapper
-          # Создаем минимальный валидный JSON файл
-          cat > laba6/build_wrapper/build-wrapper-dump.json << 'EOF'
-          {
-            "version": "0.1",
-            "captures": [
-              {
-                "compiler": {
-                  "executable": "/usr/bin/c++",
-                  "args": ["-c", "laba6/sources/main.cpp"],
-                  "wd": "/home/runner/work/Labaratory/Labaratory/laba6"
-                }
-              }
-            ]
-          }
-          EOF
+          cd laba6
+          mkdir build
+          cd build
+          cmake ..
+          msbuild laba6.sln /p:Configuration=Release
 
       - name: SonarCloud scan laba1
         uses: SonarSource/sonarqube-scan-action@v6
@@ -86,7 +80,6 @@ jobs:
             -Dsonar.projectKey=volkovich81_Labaratory1
             -Dsonar.organization=${{ env.SONAR_ORG }}
             -Dsonar.sources=laba1
-            -Dsonar.cfamily.build-wrapper-output=laba1/build_wrapper
             -Dsonar.coverage.exclusions=**
             -Dsonar.cfamily.skipCoverage=true
             -Dsonar.issue.ignore.multicriteria=e1
@@ -102,7 +95,6 @@ jobs:
             -Dsonar.projectKey=volkovich81_Labaratory2.1
             -Dsonar.organization=${{ env.SONAR_ORG }}
             -Dsonar.sources=laba2.1
-            -Dsonar.cfamily.build-wrapper-output=laba2.1/build_wrapper
             -Dsonar.coverage.exclusions=**
             -Dsonar.cfamily.skipCoverage=true
             -Dsonar.issue.ignore.multicriteria=e1
@@ -118,7 +110,6 @@ jobs:
             -Dsonar.projectKey=volkovich81_Labaratory3
             -Dsonar.organization=${{ env.SONAR_ORG }}
             -Dsonar.sources=laba3
-            -Dsonar.cfamily.build-wrapper-output=laba3/build_wrapper
             -Dsonar.coverage.exclusions=**
             -Dsonar.cfamily.skipCoverage=true
             -Dsonar.issue.ignore.multicriteria=e1
@@ -134,7 +125,6 @@ jobs:
             -Dsonar.projectKey=volkovich81_Labaratory4
             -Dsonar.organization=${{ env.SONAR_ORG }}
             -Dsonar.sources=laba4
-            -Dsonar.cfamily.build-wrapper-output=laba4/build_wrapper
             -Dsonar.coverage.exclusions=**
             -Dsonar.cfamily.skipCoverage=true
             -Dsonar.issue.ignore.multicriteria=e1
@@ -150,14 +140,13 @@ jobs:
             -Dsonar.projectKey=volkovich81_Labaratory5
             -Dsonar.organization=${{ env.SONAR_ORG }}
             -Dsonar.sources=laba5
-            -Dsonar.cfamily.build-wrapper-output=laba5/build_wrapper
             -Dsonar.coverage.exclusions=**
             -Dsonar.cfamily.skipCoverage=true
             -Dsonar.issue.ignore.multicriteria=e1
             -Dsonar.issue.ignore.multicriteria.e1.ruleKey=cxx:S5025
             -Dsonar.issue.ignore.multicriteria.e1.resourceKey=**/*
 
-      - name: SonarCloud scan laba6 (source only)
+      - name: SonarCloud scan laba6
         uses: SonarSource/sonarqube-scan-action@v6
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -166,7 +155,6 @@ jobs:
             -Dsonar.projectKey=volkovich81_Labaratory6
             -Dsonar.organization=${{ env.SONAR_ORG }}
             -Dsonar.sources=laba6
-            -Dsonar.cfamily.skipUnsupported=true
             -Dsonar.coverage.exclusions=**
             -Dsonar.cfamily.skipCoverage=true
             -Dsonar.issue.ignore.multicriteria=e1
