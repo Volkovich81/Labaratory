@@ -71,6 +71,11 @@ jobs:
           cmake ..
           msbuild laba6.sln /p:Configuration=Release
 
+      - name: Generate compile_commands.json for laba6
+        run: |
+          cd laba6/build
+          cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..
+
       # SonarCloud scan laba1 (закомментировано)
       # - name: SonarCloud scan laba1
       #   uses: SonarSource/sonarqube-scan-action@v6
@@ -160,11 +165,9 @@ jobs:
             -Dsonar.projectKey=volkovich81_Labaratory6
             -Dsonar.organization=${{ env.SONAR_ORG }}
             -Dsonar.sources=laba6
-            -Dsonar.c.file.suffixes=-
-            -Dsonar.cpp.file.suffixes=-
-            -Dsonar.objc.file.suffixes=-
             -Dsonar.coverage.exclusions=**
             -Dsonar.cfamily.skipCoverage=true
             -Dsonar.issue.ignore.multicriteria=e1
             -Dsonar.issue.ignore.multicriteria.e1.ruleKey=cxx:S5025
             -Dsonar.issue.ignore.multicriteria.e1.resourceKey=**/*
+            -Dsonar.cfamily.compile-commands=laba6/build/compile_commands.json
