@@ -71,80 +71,85 @@ jobs:
           cmake ..
           msbuild laba6.sln /p:Configuration=Release
 
-      - name: SonarCloud scan laba1
-        uses: SonarSource/sonarqube-scan-action@v6
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          args: >
-            -Dsonar.projectKey=volkovich81_Labaratory1
-            -Dsonar.organization=${{ env.SONAR_ORG }}
-            -Dsonar.sources=laba1
-            -Dsonar.coverage.exclusions=**
-            -Dsonar.cfamily.skipCoverage=true
-            -Dsonar.issue.ignore.multicriteria=e1
-            -Dsonar.issue.ignore.multicriteria.e1.ruleKey=cxx:S5025
-            -Dsonar.issue.ignore.multicriteria.e1.resourceKey=**/*
+      # SonarCloud scan laba1 (закомментировано)
+      # - name: SonarCloud scan laba1
+      #   uses: SonarSource/sonarqube-scan-action@v6
+      #   env:
+      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      #   with:
+      #     args: >
+      #       -Dsonar.projectKey=volkovich81_Labaratory1
+      #       -Dsonar.organization=${{ env.SONAR_ORG }}
+      #       -Dsonar.sources=laba1
+      #       -Dsonar.coverage.exclusions=**
+      #       -Dsonar.cfamily.skipCoverage=true
+      #       -Dsonar.issue.ignore.multicriteria=e1
+      #       -Dsonar.issue.ignore.multicriteria.e1.ruleKey=cxx:S5025
+      #       -Dsonar.issue.ignore.multicriteria.e1.resourceKey=**/*
 
-      - name: SonarCloud scan laba2.1
-        uses: SonarSource/sonarqube-scan-action@v6
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          args: >
-            -Dsonar.projectKey=volkovich81_Labaratory2.1
-            -Dsonar.organization=${{ env.SONAR_ORG }}
-            -Dsonar.sources=laba2.1
-            -Dsonar.coverage.exclusions=**
-            -Dsonar.cfamily.skipCoverage=true
-            -Dsonar.issue.ignore.multicriteria=e1
-            -Dsonar.issue.ignore.multicriteria.e1.ruleKey=cxx:S5025
-            -Dsonar.issue.ignore.multicriteria.e1.resourceKey=**/*
+      # SonarCloud scan laba2.1 (закомментировано)
+      # - name: SonarCloud scan laba2.1
+      #   uses: SonarSource/sonarqube-scan-action@v6
+      #   env:
+      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      #   with:
+      #     args: >
+      #       -Dsonar.projectKey=volkovich81_Labaratory2.1
+      #       -Dsonar.organization=${{ env.SONAR_ORG }}
+      #       -Dsonar.sources=laba2.1
+      #       -Dsonar.coverage.exclusions=**
+      #       -Dsonar.cfamily.skipCoverage=true
+      #       -Dsonar.issue.ignore.multicriteria=e1
+      #       -Dsonar.issue.ignore.multicriteria.e1.ruleKey=cxx:S5025
+      #       -Dsonar.issue.ignore.multicriteria.e1.resourceKey=**/*
 
-      - name: SonarCloud scan laba3
-        uses: SonarSource/sonarqube-scan-action@v6
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          args: >
-            -Dsonar.projectKey=volkovich81_Labaratory3
-            -Dsonar.organization=${{ env.SONAR_ORG }}
-            -Dsonar.sources=laba3
-            -Dsonar.coverage.exclusions=**
-            -Dsonar.cfamily.skipCoverage=true
-            -Dsonar.issue.ignore.multicriteria=e1
-            -Dsonar.issue.ignore.multicriteria.e1.ruleKey=cxx:S5025
-            -Dsonar.issue.ignore.multicriteria.e1.resourceKey=**/*
+      # SonarCloud scan laba3 (закомментировано)
+      # - name: SonarCloud scan laba3
+      #   uses: SonarSource/sonarqube-scan-action@v6
+      #   env:
+      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      #   with:
+      #     args: >
+      #       -Dsonar.projectKey=volkovich81_Labaratory3
+      #       -Dsonar.organization=${{ env.SONAR_ORG }}
+      #       -Dsonar.sources=laba3
+      #       -Dsonar.coverage.exclusions=**
+      #       -Dsonar.cfamily.skipCoverage=true
+      #       -Dsonar.issue.ignore.multicriteria=e1
+      #       -Dsonar.issue.ignore.multicriteria.e1.ruleKey=cxx:S5025
+      #       -Dsonar.issue.ignore.multicriteria.e1.resourceKey=**/*
 
-      - name: SonarCloud scan laba4
-        uses: SonarSource/sonarqube-scan-action@v6
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          args: >
-            -Dsonar.projectKey=volkovich81_Labaratory4
-            -Dsonar.organization=${{ env.SONAR_ORG }}
-            -Dsonar.sources=laba4
-            -Dsonar.coverage.exclusions=**
-            -Dsonar.cfamily.skipCoverage=true
-            -Dsonar.issue.ignore.multicriteria=e1
-            -Dsonar.issue.ignore.multicriteria.e1.ruleKey=cxx:S5025
-            -Dsonar.issue.ignore.multicriteria.e1.resourceKey=**/*
+      # SonarCloud scan laba4 (закомментировано)
+      # - name: SonarCloud scan laba4
+      #   uses: SonarSource/sonarqube-scan-action@v6
+      #   env:
+      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      #   with:
+      #     args: >
+      #       -Dsonar.projectKey=volkovich81_Labaratory4
+      #       -Dsonar.organization=${{ env.SONAR_ORG }}
+      #       -Dsonar.sources=laba4
+      #       -Dsonar.coverage.exclusions=**
+      #       -Dsonar.cfamily.skipCoverage=true
+      #       -Dsonar.issue.ignore.multicriteria=e1
+      #       -Dsonar.issue.ignore.multicriteria.e1.ruleKey=cxx:S5025
+      #       -Dsonar.issue.ignore.multicriteria.e1.resourceKey=**/*
 
-      - name: SonarCloud scan laba5
-        uses: SonarSource/sonarqube-scan-action@v6
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          args: >
-            -Dsonar.projectKey=volkovich81_Labaratory5
-            -Dsonar.organization=${{ env.SONAR_ORG }}
-            -Dsonar.sources=laba5
-            -Dsonar.coverage.exclusions=**
-            -Dsonar.cfamily.skipCoverage=true
-            -Dsonar.issue.ignore.multicriteria=e1
-            -Dsonar.issue.ignore.multicriteria.e1.ruleKey=cxx:S5025
-            -Dsonar.issue.ignore.multicriteria.e1.resourceKey=**/*
+      # SonarCloud scan laba5 (закомментировано)
+      # - name: SonarCloud scan laba5
+      #   uses: SonarSource/sonarqube-scan-action@v6
+      #   env:
+      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      #   with:
+      #     args: >
+      #       -Dsonar.projectKey=volkovich81_Labaratory5
+      #       -Dsonar.organization=${{ env.SONAR_ORG }}
+      #       -Dsonar.sources=laba5
+      #       -Dsonar.coverage.exclusions=**
+      #       -Dsonar.cfamily.skipCoverage=true
+      #       -Dsonar.issue.ignore.multicriteria=e1
+      #       -Dsonar.issue.ignore.multicriteria.e1.ruleKey=cxx:S5025
+      #       -Dsonar.issue.ignore.multicriteria.e1.resourceKey=**/*
 
       - name: SonarCloud scan laba6
         uses: SonarSource/sonarqube-scan-action@v6
@@ -155,6 +160,9 @@ jobs:
             -Dsonar.projectKey=volkovich81_Labaratory6
             -Dsonar.organization=${{ env.SONAR_ORG }}
             -Dsonar.sources=laba6
+            -Dsonar.c.file.suffixes=-
+            -Dsonar.cpp.file.suffixes=-
+            -Dsonar.objc.file.suffixes=-
             -Dsonar.coverage.exclusions=**
             -Dsonar.cfamily.skipCoverage=true
             -Dsonar.issue.ignore.multicriteria=e1
