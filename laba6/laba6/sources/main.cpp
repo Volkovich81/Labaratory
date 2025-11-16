@@ -6,7 +6,7 @@
 #include <limits>
 #include <cctype>
 #define NOMINMAX  
-#include <windows.h>
+/*#include <windows.h>*/
 #include "../headers/transport.h"
 #include "../headers/car.h"
 #include "../headers/carriage.h"
@@ -18,10 +18,10 @@ using namespace std;
 const int MAX_TRANSPORTS = 50;
 
 void setRussianLocale() {
-#ifdef _WIN32
+/*#ifdef _WIN32
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
-#endif
+#endif*/
     setlocale(LC_ALL, "Russian");
 }
 
