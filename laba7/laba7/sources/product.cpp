@@ -1,8 +1,6 @@
 #include "../headers/product.h"
 #include <limits>
 #include <stdexcept>
-#include <cstring>
-#include <sstream>
 #include <cctype>
 #include <array>
 
@@ -89,6 +87,160 @@ std::ofstream& operator<<(std::ofstream& ofs, const Product& product) {
     return ofs;
 }
 
+// Вспомогательные функции
+namespace {
+    bool isInteger(const std::string& str) {
+        if (str.empty()) return false;
+
+        size_t start = 0;
+        if (str[0] == '-') {
+            if (str.length() == 1) return false;
+            start = 1;
+        }
+
+        for (size_t i = start; i < str.length(); i++) {
+            if (!isdigit(static_cast<unsigned char>(str[i]))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    bool isNumber(const std::string& str) {
+        if (str.empty()) return false;
+
+        size_t start = 0;
+        bool hasDecimalPoint = false;
+
+        if (str[0] == '-') {
+            if (str.length() == 1) return false;
+            start = 1;
+        }
+
+        for (size_t i = start; i < str.length(); i++) {
+            if (str[i] == '.') {
+                if (hasDecimalPoint) return false;
+                hasDecimalPoint = true;
+            }
+            else if (!isdigit(static_cast<unsigned char>(str[i]))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    int readIntegerInput(std::istream& is, const std::string& prompt, int min, int max) {
+        std::string input;
+        while (true) {
+            std::cout << prompt;
+            if (std::getline(is, input)) {
+                if (isInteger(input)) {
+                    try {
+                        int value = std::stoi(input);
+                        if (value >= min && value <= max) {
+                            return value;
+                        }
+                        std::cout << "Ошибка: число должно быть в диапазоне " << min << "-" << max << "!\n";
+                    }
+                    catch (const std::invalid_argument&) {
+                        std::cout << "Ошибка: введите корректное целое число!\n";
+                    }
+                    catch (const std::out_of_range&) {
+                        std::cout << "Ошибка: число слишком большое!\n";
+                    }
+                }
+                else {
+                    std::cout << "Ошибка: введите целое число!\n";
+                }
+            }
+        }
+    }
+
+    double readDoubleInput(std::istream& is, const std::string& prompt, double min) {
+        std::string input;
+        while (true) {
+            std::cout << prompt;
+            if (std::getline(is, input)) {
+                // Заменяем запятую на точку для корректного ввода
+                for (char& c : input) {
+                    if (c == ',') c = '.';
+                }
+
+                if (isNumber(input)) {
+                    try {
+                        double value = std::stod(input);
+                        if (value >= min) {
+                            return value;
+                        }
+                        std::cout << "Ошибка: число не может быть меньше " << min << "!\n";
+                    }
+                    catch (const std::invalid_argument&) {
+                        std::cout << "Ошибка: введите корректное число!\n";
+                    }
+                    catch (const std::out_of_range&) {
+                        std::cout << "Ошибка: число слишком большое!\n";
+                    }
+                }
+                else {
+                    std::cout << "Ошибка: введите число (можно использовать точку или запятую)!\n";
+                }
+            }
+        }
+    }
+
+    void readDateInput(std::istream& is, int& year, int& month, int& day) {
+        year = readIntegerInput(is, "Введите год поступления: ", 1900, 2100);
+        month = readIntegerInput(is, "Введите месяц поступления (1-12): ", 1, 12);
+
+        // Определяем максимальное количество дней в месяце
+        const std::array<int, 12> daysInMonth = { 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+        int maxDays = daysInMonth[month - 1];
+
+        // Корректировка для февраля
+        if (month == 2) {
+            if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {
+                maxDays = 29; // Високосный год
+            }
+            else {
+                maxDays = 28; // Невисокосный год
+            }
+        }
+
+        day = readIntegerInput(is, "Введите день поступления: ", 1, maxDays);
+    }
+}
+
+std::istream& operator>>(std::istream& is, Product& product) {
+    std::string input;
+
+    // Ввод наименования с проверкой
+    while (true) {
+        std::cout << "Введите наименование товара: ";
+        if (std::getline(is, input)) {
+            if (!input.empty()) {
+                product.name = input;
+                break;
+            }
+        }
+        std::cout << "Ошибка: наименование не может быть пустым!\n";
+    }
+
+    // Ввод количества с проверкой
+    product.quantity = readIntegerInput(is, "Введите количество: ", 0, 10000);
+
+    // Ввод цены с проверкой
+    product.price = readDoubleInput(is, "Введите цену: ", 0.0);
+
+    // Ввод даты с проверкой
+    int year, month, day;
+    readDateInput(is, year, month, day);
+    product.year = year;
+    product.month = month;
+    product.day = day;
+
+    return is;
+}
+
 std::ifstream& operator>>(std::ifstream& ifs, Product& product) {
     std::string temp;
 
@@ -105,203 +257,4 @@ std::ifstream& operator>>(std::ifstream& ifs, Product& product) {
     product.day = std::stoi(temp);
 
     return ifs;
-}
-
-// Вспомогательная функция для проверки, является ли строка целым числом
-bool isInteger(const std::string& str) {
-    if (str.empty()) return false;
-
-    size_t start = 0;
-    if (str[0] == '-') {
-        if (str.length() == 1) return false;
-        start = 1;
-    }
-
-    for (size_t i = start; i < str.length(); i++) {
-        if (!isdigit(static_cast<unsigned char>(str[i]))) {
-            return false;
-        }
-    }
-    return true;
-}
-
-// Вспомогательная функция для проверки, является ли строка числом (целым или дробным)
-bool isNumber(const std::string& str) {
-    if (str.empty()) return false;
-
-    size_t start = 0;
-    bool hasDecimalPoint = false;
-
-    if (str[0] == '-') {
-        if (str.length() == 1) return false;
-        start = 1;
-    }
-
-    for (size_t i = start; i < str.length(); i++) {
-        if (str[i] == '.') {
-            if (hasDecimalPoint) return false;
-            hasDecimalPoint = true;
-        }
-        else if (!isdigit(static_cast<unsigned char>(str[i]))) {
-            return false;
-        }
-    }
-    return true;
-}
-
-std::istream& operator>>(std::istream& is, Product& product) {
-    std::string input;
-
-    // Ввод наименования
-    while (true) {
-        std::cout << "Введите наименование товара: ";
-        if (std::getline(is, input) && !input.empty()) {
-            product.name = input;
-            break;
-        }
-        std::cout << "Ошибка: наименование не может быть пустым!\n";
-    }
-
-    // Ввод количества
-    while (true) {
-        std::cout << "Введите количество: ";
-        if (std::getline(is, input) && isInteger(input)) {
-            try {
-                int q = std::stoi(input);
-                if (product.setQuantity(q)) {
-                    break;
-                }
-                std::cout << "Ошибка: количество не может быть отрицательным!\n";
-            }
-            catch (const std::invalid_argument&) {
-                std::cout << "Ошибка: введите корректное целое число!\n";
-            }
-            catch (const std::out_of_range&) {
-                std::cout << "Ошибка: число слишком большое!\n";
-            }
-        }
-        else {
-            std::cout << "Ошибка: введите целое число!\n";
-        }
-    }
-
-    // Ввод цены
-    while (true) {
-        std::cout << "Введите цену: ";
-        if (std::getline(is, input)) {
-            for (char& c : input) {
-                if (c == ',') c = '.';
-            }
-
-            if (isNumber(input)) {
-                try {
-                    double p = std::stod(input);
-                    if (product.setPrice(p)) {
-                        break;
-                    }
-                    std::cout << "Ошибка: цена не может быть отрицательной!\n";
-                }
-                catch (const std::invalid_argument&) {
-                    std::cout << "Ошибка: введите корректное число!\n";
-                }
-                catch (const std::out_of_range&) {
-                    std::cout << "Ошибка: число слишком большое!\n";
-                }
-            }
-            else {
-                std::cout << "Ошибка: введите число (можно использовать точку или запятую)!\n";
-            }
-        }
-    }
-
-    // Ввод даты
-    int y = 0;
-    int m = 0;
-    int d = 0;
-
-    // Ввод года
-    while (true) {
-        std::cout << "Введите год поступления: ";
-        if (!std::getline(is, input) || !isInteger(input)) {
-            std::cout << "Ошибка: год должен быть целым числом!\n";
-            continue;
-        }
-
-        try {
-            y = std::stoi(input);
-            if (y >= 1900 && y <= 2100) break;
-            std::cout << "Ошибка: год должен быть в диапазоне 1900-2100!\n";
-        }
-        catch (const std::invalid_argument&) {
-            std::cout << "Ошибка: введите корректный год!\n";
-        }
-        catch (const std::out_of_range&) {
-            std::cout << "Ошибка: год слишком большой!\n";
-        }
-    }
-
-    // Ввод месяца
-    while (true) {
-        std::cout << "Введите месяц поступления (1-12): ";
-        if (!std::getline(is, input) || !isInteger(input)) {
-            std::cout << "Ошибка: месяц должен быть целым числом!\n";
-            continue;
-        }
-
-        try {
-            m = std::stoi(input);
-            if (m >= 1 && m <= 12) break;
-            std::cout << "Ошибка: месяц должен быть в диапазоне 1-12!\n";
-        }
-        catch (const std::invalid_argument&) {
-            std::cout << "Ошибка: введите корректный месяц!\n";
-        }
-        catch (const std::out_of_range&) {
-            std::cout << "Ошибка: месяц слишком большой!\n";
-        }
-    }
-
-    // Ввод дня
-    while (true) {
-        std::cout << "Введите день поступления: ";
-        if (!std::getline(is, input) || !isInteger(input)) {
-            std::cout << "Ошибка: день должен быть целым числом!\n";
-            continue;
-        }
-
-        try {
-            d = std::stoi(input);
-            if (d < 1 || d > 31) {
-                std::cout << "Ошибка: день должен быть в диапазоне 1-31!\n";
-                continue;
-            }
-
-            const std::array<int, 12> daysInMonth = { 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-            int maxDays = daysInMonth[m - 1];
-
-            if (m == 2) {
-                if ((y % 4 == 0 && y % 100 != 0) || (y % 400 == 0)) {
-                    maxDays = 29;
-                }
-                else {
-                    maxDays = 28;
-                }
-            }
-
-            if (d <= maxDays) break;
-            std::cout << "Ошибка: в " << m << " месяце не может быть " << d << " дней! Максимум: " << maxDays << " дней.\n";
-        }
-        catch (const std::invalid_argument&) {
-            std::cout << "Ошибка: введите корректный день!\n";
-        }
-        catch (const std::out_of_range&) {
-            std::cout << "Ошибка: день слишком большой!\n";
-        }
-    }
-
-    if (!product.setDate(y, m, d)) {
-        std::cout << "Ошибка: некорректная дата! Проверьте введенные значения.\n";
-    }
-
-    return is;
 }

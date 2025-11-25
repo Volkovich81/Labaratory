@@ -38,7 +38,7 @@ public:
 
     void display() const;
 
-    // Объявления дружественных функций
+    // Все операторы как дружественные функции
     friend std::ostream& operator<<(std::ostream& os, const Product& product);
     friend std::istream& operator>>(std::istream& is, Product& product);
     friend std::ofstream& operator<<(std::ofstream& ofs, const Product& product);

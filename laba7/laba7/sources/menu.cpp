@@ -144,15 +144,13 @@ void Menu::loadFromFile() {
     }
 }
 
-void Menu::countByYear() const {
+void Menu::countByYear() {
     if (productCount <= 0) {
         std::cout << "Нет данных для анализа!\n";
         return;
     }
 
-    // Создаем не-const копию для вызова getIntInput
-    Menu* nonConstThis = const_cast<Menu*>(this);
-    int year = nonConstThis->getIntInput("Введите год для поиска", 1900, 2100);
+    int year = getIntInput("Введите год для поиска", 1900, 2100);
     int count = FileManager::getProductsCountByYear(products.data(), productCount, year);
 
     std::cout << "Общее количество товаров " << year << " года выпуска: " << count << std::endl;

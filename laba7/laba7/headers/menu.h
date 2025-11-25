@@ -25,7 +25,7 @@ public:
     void displayProducts() const;
     void saveToFile();
     void loadFromFile();
-    void countByYear() const;
+    void countByYear(); 
 };
 
 #endif
