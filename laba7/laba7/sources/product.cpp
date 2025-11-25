@@ -125,7 +125,9 @@ int Product::readIntegerInput(std::istream& is, const std::string& prompt, int m
 
         try {
             const int value = std::stoi(input);
-            if (value >= minVal && value <= maxVal) return value;
+            if (value >= minVal && value <= maxVal) {
+                return value;
+            }
             std::cout << "ќшибка: число должно быть в диапазоне " << minVal << "-" << maxVal << "!\n";
         }
         catch (const std::invalid_argument&) {
@@ -154,7 +156,9 @@ double Product::readDoubleInput(std::istream& is, const std::string& prompt, dou
 
         try {
             const double value = std::stod(input);
-            if (value >= minVal) return value;
+            if (value >= minVal) {
+                return value;
+            }
             std::cout << "ќшибка: число не может быть меньше " << minVal << "!\n";
         }
         catch (const std::invalid_argument&) {
@@ -178,53 +182,4 @@ void Product::readDateInput(std::istream& is, int& outYear, int& outMonth, int& 
     }
 
     outDay = readIntegerInput(is, "¬ведите день поступлени€: ", 1, maxDays);
-}
-
-std::istream& operator>>(std::istream& is, Product& product) {
-    std::string input;
-
-    // ¬вод наименовани€
-    while (true) {
-        std::cout << "¬ведите наименование товара: ";
-        if (std::getline(is, input) && !input.empty()) {
-            product.name_ = input;
-            break;
-        }
-        std::cout << "ќшибка: наименование не может быть пустым!\n";
-    }
-
-    // ¬вод количества
-    product.quantity_ = Product::readIntegerInput(is, "¬ведите количество: ", 0, 10000);
-
-    // ¬вод цены
-    product.price_ = Product::readDoubleInput(is, "¬ведите цену: ", 0.0);
-
-    // ¬вод даты
-    int year = 0;
-    int month = 0;
-    int day = 0;
-    Product::readDateInput(is, year, month, day);
-    product.year_ = year;
-    product.month_ = month;
-    product.day_ = day;
-
-    return is;
-}
-
-std::ifstream& operator>>(std::ifstream& ifs, Product& product) {
-    std::string temp;
-
-    if (!std::getline(ifs, product.name_)) return ifs;
-    if (!std::getline(ifs, temp)) return ifs;
-    product.quantity_ = std::stoi(temp);
-    if (!std::getline(ifs, temp)) return ifs;
-    product.price_ = std::stod(temp);
-    if (!std::getline(ifs, temp)) return ifs;
-    product.year_ = std::stoi(temp);
-    if (!std::getline(ifs, temp)) return ifs;
-    product.month_ = std::stoi(temp);
-    if (!std::getline(ifs, temp)) return ifs;
-    product.day_ = std::stoi(temp);
-
-    return ifs;
 }

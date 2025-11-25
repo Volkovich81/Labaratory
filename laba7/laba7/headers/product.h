@@ -38,14 +38,43 @@ public:
 
     void display() const;
 
-    // Скрытые дружественные операторы
+    // Все операторы как скрытые друзья
     friend std::ostream& operator<<(std::ostream& os, const Product& product) {
         os << product.name_ << " " << product.quantity_ << " " << product.price_
             << " " << product.year_ << " " << product.month_ << " " << product.day_;
         return os;
     }
 
-    friend std::istream& operator>>(std::istream& is, Product& product);
+    friend std::istream& operator>>(std::istream& is, Product& product) {
+        std::string input;
+
+        // Ввод наименования
+        while (true) {
+            std::cout << "Введите наименование товара: ";
+            if (std::getline(is, input) && !input.empty()) {
+                product.name_ = input;
+                break;
+            }
+            std::cout << "Ошибка: наименование не может быть пустым!\n";
+        }
+
+        // Ввод количества
+        product.quantity_ = Product::readIntegerInput(is, "Введите количество: ", 0, 10000);
+
+        // Ввод цены
+        product.price_ = Product::readDoubleInput(is, "Введите цену: ", 0.0);
+
+        // Ввод даты
+        int year = 0;
+        int month = 0;
+        int day = 0;
+        Product::readDateInput(is, year, month, day);
+        product.year_ = year;
+        product.month_ = month;
+        product.day_ = day;
+
+        return is;
+    }
 
     friend std::ofstream& operator<<(std::ofstream& ofs, const Product& product) {
         ofs << product.name_ << "\n" << product.quantity_ << "\n" << product.price_ << "\n"
@@ -53,7 +82,23 @@ public:
         return ofs;
     }
 
-    friend std::ifstream& operator>>(std::ifstream& ifs, Product& product);
+    friend std::ifstream& operator>>(std::ifstream& ifs, Product& product) {
+        std::string temp;
+
+        if (!std::getline(ifs, product.name_)) return ifs;
+        if (!std::getline(ifs, temp)) return ifs;
+        product.quantity_ = std::stoi(temp);
+        if (!std::getline(ifs, temp)) return ifs;
+        product.price_ = std::stod(temp);
+        if (!std::getline(ifs, temp)) return ifs;
+        product.year_ = std::stoi(temp);
+        if (!std::getline(ifs, temp)) return ifs;
+        product.month_ = std::stoi(temp);
+        if (!std::getline(ifs, temp)) return ifs;
+        product.day_ = std::stoi(temp);
+
+        return ifs;
+    }
 
 private:
     // Вспомогательные статические методы
