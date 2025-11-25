@@ -65,6 +65,13 @@ jobs:
           cmake -S laba6 -B laba6/build
           build-wrapper-linux-x86-64 --out-dir laba6/build_wrapper cmake --build laba6/build --config Release
 
+      - name: Build laba7
+        run: |
+          rm -rf laba7/build
+          mkdir -p laba7/build
+          cmake -S laba7 -B laba7/build
+          build-wrapper-linux-x86-64 --out-dir laba7/build_wrapper cmake --build laba7/build --config Release
+
       - name: SonarCloud scan laba1
         uses: SonarSource/sonarqube-scan-action@v6
         env:
@@ -155,6 +162,22 @@ jobs:
             -Dsonar.organization=${{ env.SONAR_ORG }}
             -Dsonar.sources=laba6
             -Dsonar.cfamily.build-wrapper-output=laba6/build_wrapper
+            -Dsonar.coverage.exclusions=**
+            -Dsonar.cfamily.skipCoverage=true
+            -Dsonar.issue.ignore.multicriteria=e1
+            -Dsonar.issue.ignore.multicriteria.e1.ruleKey=cxx:S5025
+            -Dsonar.issue.ignore.multicriteria.e1.resourceKey=**/*
+
+      - name: SonarCloud scan laba7
+        uses: SonarSource/sonarqube-scan-action@v6
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.projectKey=volkovich81_Labaratory7
+            -Dsonar.organization=${{ env.SONAR_ORG }}
+            -Dsonar.sources=laba7
+            -Dsonar.cfamily.build-wrapper-output=laba7/build_wrapper
             -Dsonar.coverage.exclusions=**
             -Dsonar.cfamily.skipCoverage=true
             -Dsonar.issue.ignore.multicriteria=e1
