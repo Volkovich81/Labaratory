@@ -25,7 +25,7 @@ public:
     void displayProducts() const;
     void saveToFile();
     void loadFromFile();
-    void countByYear(); 
+    void countByYear(); // Метод НЕ const, так как он взаимодействует с пользователем
 };
 
 #endif
