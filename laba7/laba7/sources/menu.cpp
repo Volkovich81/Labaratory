@@ -3,8 +3,6 @@
 #include <limits>
 #include <stdexcept>
 
-Menu::Menu() : productCount(0), filename("products.txt") {}
-
 void Menu::run() {
     while (true) {
         showMainMenu();
@@ -36,7 +34,7 @@ void Menu::run() {
     }
 }
 
-void Menu::showMainMenu() {
+void Menu::showMainMenu() const {
     std::cout << "\n=== МЕНЮ УПРАВЛЕНИЯ ТОВАРАМИ ===\n";
     std::cout << "1. Добавить товар\n";
     std::cout << "2. Показать все товары\n";
@@ -107,8 +105,8 @@ void Menu::addProduct() {
     std::cout << "Товар успешно добавлен!\n";
 }
 
-void Menu::displayProducts() {
-    FileManager::displayAllProducts(products, productCount);
+void Menu::displayProducts() const {
+    FileManager::displayAllProducts(products.data(), productCount);
 }
 
 void Menu::saveToFile() {
@@ -125,7 +123,7 @@ void Menu::saveToFile() {
         filename = inputFilename;
     }
 
-    if (FileManager::writeProductsToFile(products, productCount, filename)) {
+    if (FileManager::writeProductsToFile(products.data(), productCount, filename)) {
         std::cout << "Данные успешно сохранены!\n";
     }
 }
@@ -140,20 +138,22 @@ void Menu::loadFromFile() {
     }
 
     int loadedCount = 0;
-    if (FileManager::readProductsFromFile(products, loadedCount, MAX_PRODUCTS, filename)) {
+    if (FileManager::readProductsFromFile(products.data(), loadedCount, MAX_PRODUCTS, filename)) {
         productCount = loadedCount;
         std::cout << "Данные успешно загружены! Загружено товаров: " << productCount << std::endl;
     }
 }
 
-void Menu::countByYear() {
+void Menu::countByYear() const {
     if (productCount <= 0) {
         std::cout << "Нет данных для анализа!\n";
         return;
     }
 
-    int year = getIntInput("Введите год для поиска", 1900, 2100);
-    int count = FileManager::getProductsCountByYear(products, productCount, year);
+    // Создаем не-const копию для вызова getIntInput
+    Menu* nonConstThis = const_cast<Menu*>(this);
+    int year = nonConstThis->getIntInput("Введите год для поиска", 1900, 2100);
+    int count = FileManager::getProductsCountByYear(products.data(), productCount, year);
 
     std::cout << "Общее количество товаров " << year << " года выпуска: " << count << std::endl;
 }

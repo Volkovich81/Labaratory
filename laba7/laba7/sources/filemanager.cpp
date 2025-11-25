@@ -2,7 +2,7 @@
 #include <iostream>
 #include <stdexcept>
 
-bool FileManager::writeProductsToFile(Product* products, int count, const std::string& filename) {
+bool FileManager::writeProductsToFile(const Product* products, int count, const std::string& filename) {
     if (products == nullptr || count <= 0) {
         std::cout << "Ошибка: нет данных для сохранения!\n";
         return false;
@@ -65,8 +65,13 @@ bool FileManager::readProductsFromFile(Product* products, int& count, int maxCou
             return false;
         }
     }
-    catch (const std::exception&) {
+    catch (const std::invalid_argument&) {
         std::cout << "Ошибка: некорректный формат файла!\n";
+        file.close();
+        return false;
+    }
+    catch (const std::out_of_range&) {
+        std::cout << "Ошибка: число слишком большое!\n";
         file.close();
         return false;
     }
@@ -79,8 +84,13 @@ bool FileManager::readProductsFromFile(Product* products, int& count, int maxCou
                 return false;
             }
         }
-        catch (const std::exception& e) {
-            std::cout << "Ошибка при чтении товара №" << (i + 1) << ": " << e.what() << "\n";
+        catch (const std::invalid_argument&) {
+            std::cout << "Ошибка при чтении товара №" << (i + 1) << ": неверный формат данных\n";
+            file.close();
+            return false;
+        }
+        catch (const std::out_of_range&) {
+            std::cout << "Ошибка при чтении товара №" << (i + 1) << ": число слишком большое\n";
             file.close();
             return false;
         }
@@ -97,7 +107,7 @@ bool FileManager::readProductsFromFile(Product* products, int& count, int maxCou
     return true;
 }
 
-int FileManager::getProductsCountByYear(Product* products, int count, int year) {
+int FileManager::getProductsCountByYear(const Product* products, int count, int year) {
     if (products == nullptr || count <= 0) {
         return 0;
     }
@@ -111,7 +121,7 @@ int FileManager::getProductsCountByYear(Product* products, int count, int year) 
     return totalCount;
 }
 
-void FileManager::displayAllProducts(Product* products, int count) {
+void FileManager::displayAllProducts(const Product* products, int count) {
     if (products == nullptr || count <= 0) {
         std::cout << "Список товаров пуст.\n";
         return;

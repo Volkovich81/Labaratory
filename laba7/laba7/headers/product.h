@@ -5,6 +5,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <array>
 
 class Product {
 private:
@@ -37,6 +38,7 @@ public:
 
     void display() const;
 
+    // Объявления дружественных функций
     friend std::ostream& operator<<(std::ostream& os, const Product& product);
     friend std::istream& operator>>(std::istream& is, Product& product);
     friend std::ofstream& operator<<(std::ofstream& ofs, const Product& product);

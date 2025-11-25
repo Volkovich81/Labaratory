@@ -4,27 +4,28 @@
 
 #include "product.h"
 #include "filemanager.h"
+#include <array>
 
 class Menu {
 private:
     static const int MAX_PRODUCTS = 100;
-    Product products[MAX_PRODUCTS];
-    int productCount;
-    std::string filename;
+    std::array<Product, MAX_PRODUCTS> products;
+    int productCount = 0;
+    std::string filename = "products.txt";
 
     int getIntInput(const std::string& prompt, int min, int max);
     double getDoubleInput(const std::string& prompt, double min);
     void clearInputBuffer();
 
 public:
-    Menu();
+    Menu() = default;
     void run();
-    void showMainMenu();
+    void showMainMenu() const;
     void addProduct();
-    void displayProducts();
+    void displayProducts() const;
     void saveToFile();
     void loadFromFile();
-    void countByYear();
+    void countByYear() const;
 };
 
 #endif
