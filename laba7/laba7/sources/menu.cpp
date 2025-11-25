@@ -34,7 +34,7 @@ void Menu::run() {
     }
 }
 
-void Menu::showMainMenu() const {
+void Menu::showMainMenu() const {  // ? ИСПРАВЛЕНО: добавлен const
     std::cout << "\n=== МЕНЮ УПРАВЛЕНИЯ ТОВАРАМИ ===\n";
     std::cout << "1. Добавить товар\n";
     std::cout << "2. Показать все товары\n";
